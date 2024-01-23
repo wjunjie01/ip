@@ -38,6 +38,16 @@ public class Duke {
                 continue;
             }
 
+            if (input.split(" ")[0].equals("unmark")){
+                String taskNumDone = input.split(" ")[1];
+                int markIndex = Integer.parseInt(taskNumDone) - 1;
+                list[markIndex].unmarkTask();
+                System.out.println("Boo! This task is not done yet! ");
+                System.out.println(list[markIndex].toString());
+                System.out.println(line);
+                continue;
+            }
+
             if (input.equals("list")){
                 //String[]addedTaskList = Arrays.copyOf(list, taskCount);
                 System.out.println("The tasks in your list are: ");
