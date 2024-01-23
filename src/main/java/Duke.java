@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.Scanner;
-
 public class Duke {
     public static void main(String[] args) {
         //ASCII art
@@ -19,8 +18,8 @@ public class Duke {
         System.out.println(line);
 
         Scanner in = new Scanner(System.in);
-        String[]list = new String[100];
-        int wordCount = 0;
+        Task[]list = new Task[100]; //change to task
+        int taskCount = 0;
         String input;
 
         while (true){
@@ -28,18 +27,31 @@ public class Duke {
             if (input.equals("bye")){
                 break;
             }
+
+            if (input.split(" ")[0].equals("mark")){
+                String taskNumDone = input.split(" ")[1];
+                int markIndex = Integer.parseInt(taskNumDone) - 1;
+                list[markIndex].markTask();
+                System.out.println("Well done! This task is now done: ");
+                System.out.println(list[markIndex].toString());
+                System.out.println(line);
+                continue;
+            }
+
             if (input.equals("list")){
-                String[]addedTaskList = Arrays.copyOf(list, wordCount);
-                for (int i = 0; i < wordCount; i++){
-                    System.out.println((i+1) + ". " + addedTaskList[i]);
+                //String[]addedTaskList = Arrays.copyOf(list, taskCount);
+                System.out.println("The tasks in your list are: ");
+                for (int i = 0; i < taskCount; i++){
+                    System.out.println((i+1) + "." + list[i].toString());
                 }
                 System.out.println(line);
             }
             else{
                 System.out.println("added: " + input);
                 System.out.println(line);
-                list[wordCount] = input;
-                wordCount += 1;
+                //add a new task to the list by use of constructor
+                list[taskCount] = new Task(input);
+                taskCount += 1;
             }
         }
 
