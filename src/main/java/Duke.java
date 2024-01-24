@@ -1,4 +1,5 @@
-import java.util.Arrays;
+//Coding standard is according to: https://se-education.org/guides/conventions/java/basic.html
+
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
@@ -9,16 +10,16 @@ public class Duke {
                 "/ /_/ / /_/ / / / /  __/ /_  \n" +
                 "\\____/\\__,_/_/ /_/\\___/\\__/  \n" +
                 "                             \n";
-        String line = "------------";
 
+        String LINE = "---------------";
 
         System.out.println(logo);
         System.out.println("Hi! I'm Janet, your personal assistant.");
         System.out.println("What is your request?");
-        System.out.println(line);
+        System.out.println(LINE);
 
         Scanner in = new Scanner(System.in);
-        Task[]list = new Task[100]; //change to task
+        Task[]list = new Task[100];
         int taskCount = 0;
         String input;
 
@@ -33,8 +34,8 @@ public class Duke {
                 int markIndex = Integer.parseInt(taskNumDone) - 1;
                 list[markIndex].markTask();
                 System.out.println("Well done! This task is now done: ");
-                System.out.println(list[markIndex].toString());
-                System.out.println(line);
+                System.out.println(list[markIndex].taskInfo());
+                System.out.println(LINE);
                 continue;
             }
 
@@ -43,30 +44,29 @@ public class Duke {
                 int markIndex = Integer.parseInt(taskNumDone) - 1;
                 list[markIndex].unmarkTask();
                 System.out.println("Boo! This task is not done yet! ");
-                System.out.println(list[markIndex].toString());
-                System.out.println(line);
+                System.out.println(list[markIndex].taskInfo());
+                System.out.println(LINE);
                 continue;
             }
 
             if (input.equals("list")){
-                //String[]addedTaskList = Arrays.copyOf(list, taskCount);
                 System.out.println("The tasks in your list are: ");
                 for (int i = 0; i < taskCount; i++){
-                    System.out.println((i+1) + "." + list[i].toString());
+                    System.out.println((i+1) + "." + list[i].taskInfo());
                 }
-                System.out.println(line);
+                System.out.println(LINE);
             }
             else{
                 System.out.println("added: " + input);
-                System.out.println(line);
-                //add a new task to the list by use of constructor
+                System.out.println(LINE);
+                //add a new task to the list by use of task constructor
                 list[taskCount] = new Task(input);
                 taskCount += 1;
             }
         }
 
         System.out.println("Goodbye! See you again!");
-        System.out.println(line);
+        System.out.println(LINE);
 
     }
 }
