@@ -34,7 +34,7 @@ public class Duke {
                 int markIndex = Integer.parseInt(taskNumDone) - 1;
                 list[markIndex].markTask();
                 System.out.println("Well done! This task is now done: ");
-                System.out.println(list[markIndex].taskInfo());
+                System.out.println(list[markIndex].getTaskInfo());
                 System.out.println(LINE);
                 continue;
             }
@@ -44,7 +44,7 @@ public class Duke {
                 int markIndex = Integer.parseInt(taskNumDone) - 1;
                 list[markIndex].unmarkTask();
                 System.out.println("Boo! This task is not done yet! ");
-                System.out.println(list[markIndex].taskInfo());
+                System.out.println(list[markIndex].getTaskInfo());
                 System.out.println(LINE);
                 continue;
             }
@@ -52,7 +52,7 @@ public class Duke {
             if (input.equals("list")){
                 System.out.println("The tasks in your list are: ");
                 for (int i = 0; i < taskCount; i++){
-                    System.out.println((i+1) + "." + list[i].taskInfo());
+                    System.out.println((i+1) + "." + list[i].getTaskInfo());
                 }
                 System.out.println(LINE);
             }

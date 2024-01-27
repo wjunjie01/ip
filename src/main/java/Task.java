@@ -16,7 +16,7 @@ public class Task{
     public void unmarkTask(){
         this.isDone = false;
     }
-    public String taskInfo(){
+    public String getTaskInfo(){
         return "[" + getStatus() + "] " + this.description;
     }
 }
