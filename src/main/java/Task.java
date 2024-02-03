@@ -10,6 +10,7 @@ public class Task{
         taskCount += 1;
     }
     public String getStatus(){
+
         return (isDone ? "X": " ");
     }
 
@@ -18,13 +19,16 @@ public class Task{
     }
 
     public void markTask(){
+
         this.isDone = true;
     }
     public void unmarkTask(){
+
         this.isDone = false;
     }
     @Override
     public String toString(){
+
         return "[" + getStatus() + "] " + this.description;
     }
 }
@@ -39,6 +43,7 @@ class Deadline extends Task{
     }
     @Override
     public String toString() {
+
         return "[D]"+ super.toString() + " (by: " + by + ")";
     }
 }
@@ -50,6 +55,7 @@ class Todo extends Task{
     }
     @Override
     public String toString() {
+
         return "[T]"+ super.toString();
     }
 }
@@ -64,6 +70,7 @@ class Event extends Task{
     }
     @Override
     public String toString() {
+
         return "[E]"+ super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
