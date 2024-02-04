@@ -30,4 +30,9 @@ public class Task {
     public String getTaskType() {
         return "";
     }
+
+    @Override
+    public String toString() {
+        return "[" + getTaskType() + "][" + getStatusIcon() + "] " + getTaskName();
+    }
 }

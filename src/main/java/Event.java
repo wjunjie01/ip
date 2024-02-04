@@ -28,4 +28,9 @@ public class Event extends Task {
     public String getTaskType() {
         return "E";
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "(from: " + start + " to: " + end + ")";
+    }
 }
