@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class CheeseBot {
@@ -6,13 +5,14 @@ public class CheeseBot {
     private static final Task[] TASKS_LIST = new Task[100];
 
 
-    public static void listItems() {
-        if (numberOfTasks == 0) {
-            System.out.println("\tThere are no tasks in your list! Please add some tasks.");
-            System.out.println("\t-------------------------------------------------------------------");
+    public static void listTasks() {
+        if (isTasksListEmpty()) {
             return;
         }
+        printTasksList();
+    }
 
+    private static void printTasksList() {
         boolean isAllTasksDone = true;
         System.out.println("\tHere's your current list of tasks:");
 
@@ -49,14 +49,13 @@ public class CheeseBot {
             TASKS_LIST[numberOfTasks] = new Event(taskName, start, end);
             break;
         }
-
         numberOfTasks++;
         System.out.println("\tYou have added: " + taskName);
         System.out.println("\tYou have a total of " + numberOfTasks + " completed and uncompleted tasks.");
         System.out.println("\t-------------------------------------------------------------------");
     }
 
-    public static boolean validate(String input) {
+    public static boolean isValidInput(String input) {
         if (input.isEmpty()) {
             System.out.println("\tInput is empty! Please type something.");
             return false;
@@ -64,67 +63,104 @@ public class CheeseBot {
 
         int spaceIndex = input.indexOf(" ");
         if (spaceIndex == -1) {
-            if (input.equals("list")) {
-                return true;
-            }
-            System.out.println("invalid format");
-            return false;
+            return isValidSingleWordCommand(input);
         }
+
         String command = input.substring(0, spaceIndex);
         switch (command) {
         case "todo":
             return true;
 
         case "deadline":
-            int byIndex = input.indexOf("/by ");
-            if (byIndex == -1 || byIndex + 4 > input.length()) {
-                System.out.println("\tMissing parameters! ");
-                return false;
-            }
-
-            return true;
+            return isValidDeadlineInput(input);
 
         case "event":
-            int fromIndex = input.indexOf("/from ");
-            int toIndex = input.indexOf("/to ");
-            if (fromIndex == -1 || toIndex == -1) {
-                System.out.println("\tMissing arguments");
-                return false;
-            }
-            if (fromIndex > toIndex) {
-                System.out.println("\tWrong order of arguments!");
-                return false;
-            }
-            if (fromIndex + 6 > input.length() || toIndex + 4 > input.length() || fromIndex + 6 == toIndex) {
-                System.out.println("\tMissing arguments");
-                return false;
-            }
-            return true;
+            return isValidEventInput(input);
 
         case "mark":
+            //Fallthrough
         case "unmark":
-            int taskNumber = Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
-            if (taskNumber >= numberOfTasks) {
-                System.out.println("\tInvalid number! Number must be less than the number of tasks ("
-                        + numberOfTasks + ").");
-                System.out.println("\t-------------------------------------------------------------------");
-                return false;
+            return isValidMarkAndUnmarkInput(input, spaceIndex);
 
-            } else if (taskNumber < 0) {
-                System.out.println("\tInvalid number! Task number must be more than 0.");
-                System.out.println("\t-------------------------------------------------------------------");
-                return false;
+        default: // case where there is a space but command does not match any
+            System.out.println("\tNo such command!");
+            return false;
+        }
+    }
 
-            } else {
-                return true;
-            }
-        default:
+    private static boolean isValidSingleWordCommand(String input) {
+        if (input.equals("list") || input.equals("bye")) { // for case of single word commands with no space
+            return true;
+        } else { // for commands where >1 arguments are needed
+            System.out.println("\tWrong command usage!");
+            return false;
+        }
+    }
+
+    private static boolean isValidMarkAndUnmarkInput(String input, int spaceIndex) {
+        int taskNumber = Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
+        if (taskNumber >= numberOfTasks) {
+            System.out.println("\tInvalid number! Number must be less than the number of tasks ("
+                    + numberOfTasks + ").");
+            System.out.println("\t-------------------------------------------------------------------");
             return false;
         }
 
+        if (taskNumber < 0) {
+            System.out.println("\tInvalid number! Task number must be more than 0.");
+            System.out.println("\t-------------------------------------------------------------------");
+            return false;
+
+        }
+        return true;
     }
 
-    public static String[] parse(String input) {
+    private static boolean isValidEventInput(String input) {
+        int spaceIndex = input.indexOf(" ");
+        int fromIndex = input.indexOf("/from");
+        int toIndex = input.indexOf("/to");
+
+        if (fromIndex == -1) {
+            System.out.println("\tMissing '/from' field");
+            return false;
+        } else if (fromIndex + 6 > input.length()) {
+            System.out.println("\tMissing /from argument");
+            return false;
+        } else if (toIndex == -1) {
+            System.out.println("\tMissing '/to' field");
+            return false;
+        } else if (fromIndex == spaceIndex) {
+            System.out.println("\tMissing task name!");
+            return false;
+        } else if (fromIndex > toIndex) {
+            System.out.println("\tWrong order of arguments!");
+            return false;
+
+        } else if (toIndex + 4 > input.length()) {
+            System.out.println("\tMissing /to argument");
+            return false;
+        } else if (fromIndex + 6 == toIndex) {
+            System.out.println("\tMissing /from argument");
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean isValidDeadlineInput(String input) {
+        int byIndex = input.indexOf("/by ");
+        int spaceIndex = input.indexOf(" ");
+        if (byIndex == -1 || byIndex + 4 > input.length()) {
+            System.out.println("\tMissing deadline! ");
+            return false;
+        }
+        if (spaceIndex + 1 == byIndex) {
+            System.out.println("\tMissing task name!");
+            return false;
+        }
+        return true;
+    }
+
+    public static String[] parseInput(String input) {
         String[] parsed = new String[4];
         int spaceIndex = input.indexOf(" ");
         if (spaceIndex == -1) {
@@ -133,66 +169,70 @@ public class CheeseBot {
         }
         String command = input.substring(0, spaceIndex);
         String taskName;
-
         parsed[0] = command;
 
         switch (command) {
         case "todo":
             taskName = input.substring(spaceIndex + 1);
             parsed[1] = taskName;
-            return parsed;
+            break;
 
         case "deadline":
             int byIndex = input.indexOf("/by ");
 
-            taskName = input.substring(spaceIndex + 1, byIndex);
+            taskName = input.substring(spaceIndex + 1, byIndex - 1);
             String by = input.substring(byIndex + 4);
             parsed[1] = taskName;
             parsed[2] = by;
-
-            return parsed;
+            break;
 
         case "event":
             int fromIndex = input.indexOf("/from ");
             int toIndex = input.indexOf("/to ");
 
-            taskName = input.substring(spaceIndex + 1, fromIndex);
-            String from = input.substring(fromIndex + 6, toIndex);
+            taskName = input.substring(spaceIndex + 1, fromIndex - 1);
+            String from = input.substring(fromIndex + 6, toIndex - 1);
             String to = input.substring(toIndex + 4);
             parsed[1] = taskName;
             parsed[2] = from;
             parsed[3] = to;
+            break;
 
-            return parsed;
-        default:
+        case "mark":
+            //Fallthrough
+        case "unmark":
             String taskNumber = input.substring(spaceIndex + 1);
             parsed[1] = taskNumber;
-
-            return parsed;
+            break;
         }
-
+        return parsed;
     }
 
     public static void mark(String[] arguments, boolean isDone) {
-        if (numberOfTasks == 0) {
-            System.out.println("\tThere are no tasks in your list! Please add some tasks.");
-            System.out.println("\t-------------------------------------------------------------------");
+        if (isTasksListEmpty()) {
             return;
         }
 
         int taskNumber = Integer.parseInt(arguments[1]) - 1;
         Task taskToEdit = TASKS_LIST[taskNumber];
 
-        if (taskToEdit.isTaskDone() && isDone) { //checks if a completed task is to be marked again
-            System.out.println("\tTask is already marked done!");
-            System.out.println("\t-------------------------------------------------------------------");
-            return;
-        } else if (!taskToEdit.isTaskDone() && !isDone) { // checks if an uncompleted task is to be unmarked
-            System.out.println("\tTask is already unmarked!");
-            System.out.println("\t-------------------------------------------------------------------");
+        if (isAlreadyMarked(isDone, taskToEdit) || isAlreadyUnmarked(isDone, taskToEdit)) {
             return;
         }
 
+        changeTaskStatus(isDone, taskToEdit, taskNumber);
+    }
+
+    private static boolean isTasksListEmpty() {
+        if (numberOfTasks == 0) {
+            System.out.println("\tThere are no tasks in your list! Please add some tasks.");
+            System.out.println("\t-------------------------------------------------------------------");
+            return true;
+        }
+        return false;
+    }
+
+    private static void changeTaskStatus(boolean isDone, Task taskToEdit, int taskNumber) {
         taskToEdit.setTaskDone(isDone);
         if (isDone) {
             System.out.println("\tWell done, you are one step closer to finishing your tasks!");
@@ -205,53 +245,94 @@ public class CheeseBot {
         System.out.println("\t-------------------------------------------------------------------");
     }
 
+    private static boolean isAlreadyUnmarked(boolean isDone, Task taskToEdit) {
+        if (!taskToEdit.isTaskDone() && !isDone) {
+            System.out.println("\tTask is already unmarked!");
+            System.out.println("\t-------------------------------------------------------------------");
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isAlreadyMarked(boolean isDone, Task taskToEdit) {
+        if (taskToEdit.isTaskDone() && isDone) {
+            System.out.println("\tTask is already marked done!");
+            System.out.println("\t-------------------------------------------------------------------");
+            return true;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
+        printGreeting();
+        inputLoop();
+        printFarewell();
+    }
+
+    private static void inputLoop() {
+        Scanner in = new Scanner(System.in);
+
+        while (true) {
+            String input = getInput(in);
+            if (!isValidInput(input)) {
+                continue;
+            }
+            String[] arguments = parseInput(input);
+            String command = arguments[0];
+
+            if (isBye(command)) {
+                break;
+            }
+             botAction(arguments);
+        }
+    }
+
+    private static boolean isBye(String command) {
+        return command.equals("bye");
+    }
+
+    private static void botAction(String[] arguments) {
+        String command = arguments[0];
+        
+        switch (command) {
+        case "list":
+            listTasks();
+            break;
+        case "mark":
+            mark(arguments, true);
+            break;
+        case "unmark":
+            mark(arguments, false);
+            break;
+        case "todo":
+            //Fallthrough
+        case "deadline":
+            //Fallthrough
+        case "event":
+            addTask(arguments);
+            break;
+        }
+    }
+
+    private static String getInput(Scanner in) {
+        String inputPrompt = "\tPlease input your desired action: ";
+        System.out.println(inputPrompt);
+        String input = in.nextLine().strip();
+        System.out.println("\t-------------------------------------------------------------------");
+        return input;
+    }
+
+    private static void printFarewell() {
+        String farewell = "\tBye. Hope to see you again soon!\n"
+                + "\t-------------------------------------------------------------------";
+        System.out.print(farewell);
+    }
+
+    private static void printGreeting() {
         String greeting = "\t-------------------------------------------------------------------\n"
                 + "\tHello! I'm CheeseBot\n"
                 + "\tWhat can I do for you?\n"
                 + "\t-------------------------------------------------------------------";
         System.out.println(greeting);
-
-        Scanner in = new Scanner(System.in);
-        String inputPrompt = "\tPlease input your desired action: ";
-
-        System.out.println(inputPrompt);
-        String input = in.nextLine().strip();
-        System.out.println("\t-------------------------------------------------------------------");
-
-        while (true) {
-            if (validate(input)) {
-                String[] arguments = parse(input);
-                String command = arguments[0];
-                if (command.equals("bye")) {
-                    break;
-                }
-
-                switch (command) {
-                case "list":
-                    listItems();
-                    break;
-                case "mark":
-                    mark(arguments, true);
-                    break;
-                case "unmark":
-                    mark(arguments, false);
-                    break;
-                case "todo":
-                case "deadline":
-                case "event":
-                    addTask(arguments);
-                    break;
-                }
-            }
-
-            System.out.println(inputPrompt);
-            input = in.nextLine().strip();
-            System.out.println("\t-------------------------------------------------------------------");
-        }
-
-        String farewell = "\tBye. Hope to see you again soon!\n"
-                + "\t-------------------------------------------------------------------";
-        System.out.print(farewell);
     }
 }

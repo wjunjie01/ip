@@ -31,6 +31,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + "(from: " + start + " to: " + end + ")";
+        return super.toString() + " (from: " + start + " to: " + end + ")";
     }
 }
