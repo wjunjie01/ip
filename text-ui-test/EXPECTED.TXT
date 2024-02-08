@@ -1,7 +1,36 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+       __                 __
+      / /___ _____  ___  / /_
+ __  / / __ `/ __ \/ _ \/ __/
+/ /_/ / /_/ / / / /  __/ /_
+\____/\__,_/_/ /_/\___/\__/
 
+
+Hi! I'm Janet, your personal assistant.
+What is your request?
+---------------
+Task added: listen to music
+You now have 1 task(s) in the list.
+---------------
+Task added: do chores!
+You now have 2 task(s) in the list.
+---------------
+Well done! This task is now done:
+[T][X] listen to music
+---------------
+The tasks in your list are:
+1.[T][X] listen to music
+2.[D][ ] do chores! (by: 6pm)
+---------------
+Task added: Attend CS2113T lecture
+You now have 3 task(s) in the list.
+---------------
+Boo! This task is not done yet!
+[T][ ] listen to music
+---------------
+The tasks in your list are:
+1.[T][ ] listen to music
+2.[D][ ] do chores! (by: 6pm)
+3.[E][ ] Attend CS2113T lecture (from: Friday 4pm to: 6pm)
+---------------
+Goodbye! See you again!
+---------------
