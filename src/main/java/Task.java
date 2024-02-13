@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String taskName;
     protected boolean isTaskDone;
 
@@ -27,9 +27,7 @@ public class Task {
         return (isTaskDone ? "X" : " ");
     }
 
-    public String getTaskType() {
-        return "";
-    }
+    public abstract String getTaskType();
 
     @Override
     public String toString() {
