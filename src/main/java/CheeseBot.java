@@ -21,7 +21,7 @@ public class CheeseBot {
             if (!currentTask.isTaskDone()) {
                 isAllTasksDone = false;
             }
-            System.out.println("\t" + (i + 1) + "." + currentTask);
+            System.out.println("\t\t" + (i + 1) + "." + currentTask);
         }
         System.out.println("\tNow you have " + numberOfTasks + " tasks in your list.");
 
@@ -55,110 +55,100 @@ public class CheeseBot {
         System.out.println("\t-------------------------------------------------------------------");
     }
 
-    public static boolean isValidInput(String input) {
+    public static void validateInput(String input) throws InvalidInputException {
         if (input.isEmpty()) {
-            System.out.println("\tInput is empty! Please type something.");
-            return false;
+            throw new InvalidInputException("\tInput is empty! Please type something.");
         }
 
         int spaceIndex = input.indexOf(" ");
         if (spaceIndex == -1) {
-            return isValidSingleWordCommand(input);
+            validateSingleWordCommand(input);
+            return;
         }
 
         String command = input.substring(0, spaceIndex);
         switch (command) {
         case "todo":
-            return true;
+            return;
 
         case "deadline":
-            return isValidDeadlineInput(input);
+            validateDeadlineInput(input);
+            return;
 
         case "event":
-            return isValidEventInput(input);
+            validateEventInput(input);
+            return;
 
         case "mark":
             //Fallthrough
         case "unmark":
-            return isValidMarkAndUnmarkInput(input, spaceIndex);
+            validateMarkAndUnmarkInput(input, spaceIndex);
+            return;
 
         default: // case where there is a space but command does not match any
-            System.out.println("\tNo such command!");
-            return false;
+            throw new InvalidInputException("\tNo such command!");
         }
     }
 
-    private static boolean isValidSingleWordCommand(String input) {
+    private static void validateSingleWordCommand(String input) throws InvalidInputException {
         // for case of single word commands with no space
         if (input.equals("list") || input.equals("bye") || input.equals("help")) {
-            return true;
-        } else { // for commands where >1 arguments are needed
-            System.out.println("\tWrong command usage!");
-            return false;
+            return;
         }
+        // for commands where >1 arguments are needed
+        throw new InvalidInputException("\tWrong command usage or no such command!");
     }
 
-    private static boolean isValidMarkAndUnmarkInput(String input, int spaceIndex) {
+    private static void validateMarkAndUnmarkInput(String input, int spaceIndex) throws InvalidInputException{
         int taskNumber = Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
         if (taskNumber >= numberOfTasks) {
-            System.out.println("\tInvalid number! Number must be less than the number of tasks ("
+            throw new InvalidInputException("\tInvalid number! Number must be less than the number of tasks ("
                     + numberOfTasks + ").");
-            System.out.println("\t-------------------------------------------------------------------");
-            return false;
         }
 
         if (taskNumber < 0) {
-            System.out.println("\tInvalid number! Task number must be more than 0.");
-            System.out.println("\t-------------------------------------------------------------------");
-            return false;
-
+            throw new InvalidInputException("\tInvalid number! Task number must be more than 0.");
         }
-        return true;
     }
 
-    private static boolean isValidEventInput(String input) {
+    private static void validateEventInput(String input) throws InvalidInputException{
         int spaceIndex = input.indexOf(" ");
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");
 
-        if (fromIndex == -1) {
-            System.out.println("\tMissing '/from' field");
-            return false;
-        } else if (fromIndex + 6 > input.length()) {
-            System.out.println("\tMissing /from argument");
-            return false;
+        if (fromIndex == spaceIndex + 1) {
+            throw new InvalidInputException("\tMissing task name!");
+
+        } else if (fromIndex == -1) {
+            throw new InvalidInputException("\tMissing '/from' flag!");
+
+        } else if (fromIndex + 6 > input.length() || fromIndex + 6 == toIndex) {
+            throw new InvalidInputException("\tMissing /from argument!");
+
         } else if (toIndex == -1) {
-            System.out.println("\tMissing '/to' field");
-            return false;
-        } else if (fromIndex == spaceIndex) {
-            System.out.println("\tMissing task name!");
-            return false;
-        } else if (fromIndex > toIndex) {
-            System.out.println("\tWrong order of arguments!");
-            return false;
+            throw new InvalidInputException("\tMissing '/to' flag!");
 
         } else if (toIndex + 4 > input.length()) {
-            System.out.println("\tMissing /to argument");
-            return false;
-        } else if (fromIndex + 6 == toIndex) {
-            System.out.println("\tMissing /from argument");
-            return false;
+            throw new InvalidInputException("\tMissing '/to' argument!");
+
+        } else if (fromIndex > toIndex) {
+            throw new InvalidInputException("\tWrong order of flags!");
         }
-        return true;
     }
 
-    private static boolean isValidDeadlineInput(String input) {
-        int byIndex = input.indexOf("/by ");
+    private static void validateDeadlineInput(String input) throws InvalidInputException{
+        int byIndex = input.indexOf("/by");
         int spaceIndex = input.indexOf(" ");
-        if (byIndex == -1 || byIndex + 4 > input.length()) {
-            System.out.println("\tMissing deadline! ");
-            return false;
-        }
+
         if (spaceIndex + 1 == byIndex) {
-            System.out.println("\tMissing task name!");
-            return false;
+            throw new InvalidInputException("\tMissing task name!");
         }
-        return true;
+        if (byIndex == -1 ) {
+            throw new InvalidInputException("\tMissing '/by' flag!");
+        }
+        if (byIndex + 4 > input.length()) {
+            throw new InvalidInputException("\tMissing deadline!");
+        }
     }
 
     public static String[] parseInput(String input) {
@@ -168,6 +158,7 @@ public class CheeseBot {
             parsed[0] = input;
             return parsed;
         }
+
         String command = input.substring(0, spaceIndex);
         String taskName;
         parsed[0] = command;
@@ -274,17 +265,20 @@ public class CheeseBot {
         Scanner in = new Scanner(System.in);
 
         while (true) {
-            String input = getInput(in);
-            if (!isValidInput(input)) {
-                continue;
-            }
-            String[] arguments = parseInput(input);
-            String command = arguments[0];
+            try {
+                String input = getInput(in);
+                validateInput(input);
 
-            if (isBye(command)) {
-                break;
+                String[] arguments = parseInput(input);
+                String command = arguments[0];
+
+                if (isBye(command)) {
+                    break;
+                }
+                botAction(arguments);
+            } catch (InvalidInputException e) {
+                // No action required. Just catch the exception.
             }
-             botAction(arguments);
         }
     }
 
