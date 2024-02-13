@@ -1,3 +1,8 @@
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.TasksList;
+import Tasks.Todo;
+
 import java.util.Scanner;
 
 public class CheeseBot {
@@ -254,10 +259,6 @@ public class CheeseBot {
             tasksList.addTask(new Event(taskName, start, end));
             break;
         }
-
-        System.out.println("\tYou have added: " + taskName);
-        System.out.println("\tYou have a total of " + tasksList.getNumberOfTasks() + " completed and uncompleted tasks.");
-        System.out.println("\t-------------------------------------------------------------------");
     }
 
     private static void printCommandList() {

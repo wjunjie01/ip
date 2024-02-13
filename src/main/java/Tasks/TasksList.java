@@ -1,3 +1,5 @@
+package Tasks;
+
 public class TasksList {
     private int numberOfTasks = 0;
     private final Task[] tasks = new Task[100];
@@ -26,7 +28,7 @@ public class TasksList {
             if (!currentTask.isTaskDone()) {
                 isAllTasksDone = false;
             }
-            System.out.println("\t" + (i + 1) + "." + currentTask);
+            System.out.println("\t\t" + (i + 1) + "." + currentTask);
         }
         System.out.println("\tNow you have " + numberOfTasks + " tasks in your list.");
 
