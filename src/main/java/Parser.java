@@ -1,5 +1,4 @@
 public class Parser {
-
     public static final int BEGIN_DEADLINE_INDEX = 9;
     public static final int BEGIN_EVENT_INDEX = 6;
 
@@ -7,27 +6,20 @@ public class Parser {
         String firstWord = input.split(" ")[0];
 
         switch (firstWord) {
-        case "bye": {
+        case "bye":
             return new ByeCommand();
-        }
-        case "mark": {
+        case "mark":
             return parseMarkTask(input, taskList);
-        }
-        case "unmark": {
+        case "unmark":
             return parseUnmarkTask(input, taskList);
-        }
-        case "list": {
+        case "list":
             return new ListCommand();
-        }
-        case "todo": {
+        case "todo":
             return parseTodoTask(input);
-        }
-        case "deadline": {
+        case "deadline":
             return parseDeadlineTask(input);
-        }
-        case "event": {
+        case "event":
             return parseEventTask(input);
-        }
         default:
             throw new DukeException("Not a valid command!!");
         }
@@ -109,7 +101,7 @@ public class Parser {
 
     public static Command parseEventTask(String input) throws DukeException {
         String taskInformation = input.substring(BEGIN_EVENT_INDEX);
-        String[]fromSplitArray = taskInformation.split(" /from ");
+        String[] fromSplitArray = taskInformation.split(" /from ");
 
         if (fromSplitArray.length < 2 || !fromSplitArray[1].contains(" /to ")) {
             throw new DukeException("Your event task must include /from and /to ! "
