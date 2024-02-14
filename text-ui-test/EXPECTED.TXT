@@ -8,10 +8,10 @@
 Hi! I'm Janet, your personal assistant.
 What is your request?
 ---------------
-Task added: listen to music
+added: listen to music
 You now have 1 task(s) in the list.
 ---------------
-Task added: do chores!
+added: do chores!
 You now have 2 task(s) in the list.
 ---------------
 Well done! This task is now done:
@@ -21,7 +21,7 @@ The tasks in your list are:
 1.[T][X] listen to music
 2.[D][ ] do chores! (by: 6pm)
 ---------------
-Task added: Attend CS2113T lecture
+duke.task.Task added: Attend CS2113T lecture
 You now have 3 task(s) in the list.
 ---------------
 Boo! This task is not done yet!

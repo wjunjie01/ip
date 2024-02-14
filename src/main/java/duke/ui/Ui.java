@@ -1,3 +1,8 @@
+package duke.ui;
+
+import duke.task.Task;
+import duke.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -48,7 +53,7 @@ public class Ui {
     }
 
     public static void printAddTask(String taskDescription){
-        System.out.println("Task added: " + taskDescription);
+        System.out.println("added: " + taskDescription);
         System.out.println("You now have " + Task.getTaskCount() + " task(s) in the list.");
         System.out.println(LINE);
     }
