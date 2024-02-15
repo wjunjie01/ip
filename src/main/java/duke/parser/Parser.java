@@ -26,16 +26,42 @@ public class Parser {
             return parseDeadlineTask(input);
         case "event":
             return parseEventTask(input);
+        case "delete":
+            return parseDeleteTask(input, taskList);
         default:
             throw new DukeException("Not a valid command!!");
         }
     }
 
+    public static Command parseDeleteTask(String input, TaskList taskList) throws DukeException {
+        String[] inputArray = input.split(" ");
+
+        int taskIndex;
+
+        if (inputArray.length < 2) {
+            throw new DukeException("Please specify a VALID task number to delete! "
+                    + "Correct usage: mark [Task Number]");
+        }
+
+        try {
+            taskIndex = Integer.parseInt(inputArray[1]);
+        } catch (NumberFormatException e) {
+            throw new DukeException("Task number must be in integer! "
+                    + "Correct usage: delete [Task Number]");
+        }
+
+        if ((taskIndex > taskList.taskList.size()) || (taskIndex <= 0)) {
+            throw new DukeException("Please specify a task number that is within the list! "
+                    + "Correct usage: delete [Task Number]");
+        }
+        return new DeleteCommand(taskIndex);
+    }
     public static Command parseMarkTask(String input, TaskList taskList) throws DukeException {
         String[] inputArray = input.split(" ");
 
         if (inputArray.length < 2) {
-            throw new DukeException("Please specify a task number to mark! Correct usage: mark [duke.task.Task Number]");
+            throw new DukeException("Please specify a task number to mark! "
+                    + "Correct usage: mark [Task Number]");
         }
 
         int taskIndex;
@@ -43,12 +69,13 @@ public class Parser {
         try {
             taskIndex = Integer.parseInt(inputArray[1]);
         } catch (NumberFormatException e) {
-            throw new DukeException("duke.task.Task number must be in integer! Correct usage: mark [duke.task.Task Number]");
+            throw new DukeException("Task number must be in integer! "
+                    + "Correct usage: mark [Task Number]");
         }
 
-        if (taskIndex > taskList.taskList.size()) {
+        if (taskIndex > taskList.taskList.size() || (taskIndex <= 0)) {
             throw new DukeException("Please specify a task number that is within the list! "
-                    + "Correct usage: mark [duke.task.Task Number]");
+                    + "Correct usage: mark [Task Number]");
         }
         return new MarkCommand(taskIndex);
     }
@@ -57,7 +84,8 @@ public class Parser {
         String[] inputArray = input.split(" ");
 
         if (inputArray.length < 2) {
-            throw new DukeException("Please specify a task number to mark! Correct usage: unmark [duke.task.Task Number]");
+            throw new DukeException("Please specify a task number to mark! "
+                    + "Correct usage: unmark [Task Number]");
         }
 
         int taskIndex;
@@ -65,12 +93,13 @@ public class Parser {
         try {
             taskIndex = Integer.parseInt(inputArray[1]);
         } catch (NumberFormatException e) {
-            throw new DukeException("duke.task.Task number must be in integer! Correct usage: unmark [duke.task.Task Number]");
+            throw new DukeException("duke.task.Task number must be in integer! "
+                    + "Correct usage: unmark [Task Number]");
         }
 
-        if (taskIndex > taskList.taskList.size()) {
+        if (taskIndex > taskList.taskList.size() || (taskIndex <= 0)) {
             throw new DukeException("Please specify a task number that is within the list! "
-                    + "Correct usage: mark [duke.task.Task Number]");
+                    + "Correct usage: unmark [Task Number]");
         }
 
         return new UnmarkCommand(taskIndex);
