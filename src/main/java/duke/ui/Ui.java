@@ -57,4 +57,11 @@ public class Ui {
         System.out.println("You now have " + Task.getTaskCount() + " task(s) in the list.");
         System.out.println(LINE);
     }
+
+    public static void printDeleteTask(int taskIndex, TaskList taskList) {
+        System.out.println("Okay, I've removed the task");
+        System.out.println("\t" + taskList.taskList.get(taskIndex).toString());
+        System.out.println("You now have " + Task.getTaskCount() + " task(s) in the list.");
+        System.out.println(LINE);
+    }
 }
