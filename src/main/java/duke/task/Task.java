@@ -30,4 +30,7 @@ public class Task {
     public String toString(){
         return "[" + getStatus() + "] " + this.description;
     }
+    public String toFileFormat() {
+        return " | " + (this.isDone? "1" : "0") + " | " + this.description;
+    }
 }
