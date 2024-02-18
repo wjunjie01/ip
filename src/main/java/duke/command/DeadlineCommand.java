@@ -4,7 +4,7 @@ import duke.task.Deadline;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-public class DeadlineCommand implements Command {
+public class DeadlineCommand extends Command {
     private final String TASK_DESCRIPTION;
     private final String BY;
     public DeadlineCommand(String taskDescription, String by) {

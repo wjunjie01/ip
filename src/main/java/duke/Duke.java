@@ -12,11 +12,10 @@ public class Duke {
     public static boolean isExit;
     public TaskList taskList;
     public Storage storage;
-    public Duke(){
+    public Duke(String filePath){
         isExit = false;
         taskList = new TaskList();
 
-        String filePath = "data/duke.txt";
         storage = new Storage(filePath);
 
         try {
@@ -27,16 +26,15 @@ public class Duke {
             throw new RuntimeException(e);
         }
     }
-    public static void main(String[] args) {
-        Duke duke = new Duke();
+    public void run() {
         Ui.printWelcomeMessage();
 
         while (!isExit) {
             try {
                 String input = Ui.readUserInput();
-                Command command = Parser.parse(input, duke.taskList);
-                command.execute(input, duke.taskList);
-                duke.storage.saveTask(duke.taskList);
+                Command command = Parser.parse(input, taskList);
+                command.execute(input, taskList);
+                storage.saveTask(taskList);
             } catch (DukeException e) {
                 Ui.printLine();
                 System.out.println(e.getMessage());
@@ -44,5 +42,9 @@ public class Duke {
             }
         }
         Ui.printGoodbyeMessage();
+    }
+
+    public static void main(String[] args) {
+        new Duke("data/tasks.txt").run();
     }
 }

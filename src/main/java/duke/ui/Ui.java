@@ -34,6 +34,7 @@ public class Ui {
     }
     public static void printListTasks(TaskList taskList) {
         System.out.println("The tasks in your list are: ");
+        //Iterates through the task in the task list, gets the task and prints it
         for (int i = 0; i < taskList.taskList.size(); i++) {
             System.out.println((i + 1) + "." + taskList.taskList.get(i).toString());
         }

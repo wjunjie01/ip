@@ -4,7 +4,7 @@ import duke.task.Event;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-public class EventCommand implements Command{
+public class EventCommand extends Command{
     private final String TASK_DESCRIPTION;
     private final String FROM;
     private final String TO;

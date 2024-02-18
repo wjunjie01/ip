@@ -3,7 +3,7 @@ package duke.command;
 import duke.ui.Ui;
 import duke.task.TaskList;
 
-public class MarkCommand implements Command{
+public class MarkCommand extends Command{
     private final int TASK_INDEX;
     public MarkCommand(int taskIndex) {
         this.TASK_INDEX = taskIndex;
