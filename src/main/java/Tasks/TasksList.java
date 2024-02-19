@@ -98,4 +98,13 @@ public class TasksList {
     public int getNumberOfTasks() {
         return numberOfTasks;
     }
+
+    public void delete(int taskNumber) {
+        Task taskToDelete = tasks.get(taskNumber - 1);
+        tasks.remove(taskToDelete);
+        numberOfTasks--;
+        System.out.println("\t Done! I have deleted the following task.");
+        System.out.println(taskToDelete);
+        System.out.println("\tNow you have " + numberOfTasks + " tasks in your list");
+    }
 }
