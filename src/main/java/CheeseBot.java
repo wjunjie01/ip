@@ -88,7 +88,9 @@ public class CheeseBot {
         case "mark":
             //Fallthrough
         case "unmark":
-            validateMarkAndUnmarkInput(input, spaceIndex);
+            //Fallthrough
+        case "delete":
+            validateIntegerInput(input, spaceIndex);
             return;
 
         default: // case where there is a space but command does not match any
@@ -138,6 +140,8 @@ public class CheeseBot {
         case "mark":
             //Fallthrough
         case "unmark":
+            //Fallthrough
+        case "delete":
             String taskNumber = input.substring(spaceIndex + 1);
             parsed[1] = taskNumber;
             break;
@@ -198,7 +202,7 @@ public class CheeseBot {
         }
     }
 
-    private static void validateMarkAndUnmarkInput(String input, int spaceIndex) throws InvalidInputException{
+    private static void validateIntegerInput(String input, int spaceIndex) throws InvalidInputException{
         int taskNumber = Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
         if (taskNumber >= tasksList.getNumberOfTasks()) {
             throw new InvalidInputException("\tInvalid number! Number must be less than the number of tasks ("
@@ -236,6 +240,9 @@ public class CheeseBot {
 
         case "help":
             printCommandList();
+
+        case "delete":
+            tasksList.delete(arguments);
         }
     }
 
