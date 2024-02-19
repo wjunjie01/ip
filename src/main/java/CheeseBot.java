@@ -1,18 +1,75 @@
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.TasksList;
-import Tasks.Todo;
+import Tasks.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class CheeseBot {
-    private static TasksList tasksList;
+    private final static TasksList tasksList = new TasksList();
+    private final static Path inFilePath = Paths.get("./data/CheeseBot.txt");
+    private final static Path outFilePath = Paths.get("./data/temp.txt");
+    private final static File inFile = inFilePath.toFile();
+    private final static File outFile = outFilePath.toFile();
 
     public static void main(String[] args) {
         printGreeting();
-        createTasksList();
+        try {
+            readFromInputFile();
+        } catch (FileNotFoundException e) {
+            createFile(inFile);
+        }
+        createFile(outFile);
         inputLoop();
+        storeData();
         printFarewell();
+    }
+
+    private static void storeData() {
+        copyData();
+        deleteTempFile();
+    }
+
+    private static void deleteTempFile() {
+        try {
+            Files.delete(outFilePath);
+        } catch (IOException e) {
+            System.out.println("Temp file cannot be deleted");
+            System.exit(1);
+        }
+    }
+
+    private static void copyData() {
+        try {
+            Files.copy(inFilePath, outFilePath);
+        } catch (IOException e) {
+            System.out.println("Data file cannot be replaced");
+            System.exit(1);
+        }
+    }
+
+
+
+    private static void readFromInputFile() throws FileNotFoundException {
+        Scanner scanner = new Scanner(inFile);
+        while (scanner.hasNext()) {
+            String nextLine = scanner.nextLine();
+            String[] arguments = nextLine.split("\\|");
+            botAction(arguments);
+        }
+    }
+
+    private static void createFile(File file) {
+        file.getParentFile().mkdirs();
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            System.exit(1);
+        }
+
     }
 
     private static void printGreeting() {
@@ -21,10 +78,6 @@ public class CheeseBot {
                 + "\tWhat can I do for you?\n"
                 + "\t-------------------------------------------------------------------";
         System.out.println(greeting);
-    }
-
-    private static void createTasksList() {
-        tasksList = new TasksList();
     }
 
     private static void inputLoop() {
