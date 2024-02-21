@@ -25,7 +25,6 @@ public class TasksList {
 
     public void printTasksList() {
         boolean isAllTasksDone = true;
-        System.out.println(tasks);
         System.out.println("\tHere's your current list of tasks:");
 
         int i = 0;
