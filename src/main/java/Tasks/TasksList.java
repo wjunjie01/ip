@@ -1,8 +1,10 @@
 package Tasks;
 
+import java.util.ArrayList;
+
 public class TasksList {
     private int numberOfTasks = 0;
-    private final Task[] tasks = new Task[100];
+    private final ArrayList<Task> tasks = new ArrayList<>();
 
     public void listTasks() {
         if (isTasksListEmpty()) {
@@ -12,7 +14,7 @@ public class TasksList {
     }
 
     public void addTask(Task newTask) {
-        tasks[numberOfTasks] = newTask;
+        tasks.add(newTask);
         numberOfTasks++;
         System.out.println("\tYou have added: " + newTask.getTaskName());
         System.out.println("\tYou have a total of " + numberOfTasks + " completed and uncompleted tasks.");
@@ -21,15 +23,19 @@ public class TasksList {
 
     public void printTasksList() {
         boolean isAllTasksDone = true;
+        System.out.println(tasks);
         System.out.println("\tHere's your current list of tasks:");
 
-        for (int i = 0; i < numberOfTasks; i++) {
-            Task currentTask = tasks[i];
-            if (!currentTask.isTaskDone()) {
+        int i = 0;
+        for (Task task: tasks) {
+            if (!task.isTaskDone()) {
                 isAllTasksDone = false;
             }
-            System.out.println("\t\t" + (i + 1) + "." + currentTask);
+
+            System.out.println("\t\t" + (i + 1) + "." + task);
+            i += 1;
         }
+
         System.out.println("\tNow you have " + numberOfTasks + " tasks in your list.");
 
         if (isAllTasksDone) {
@@ -38,7 +44,7 @@ public class TasksList {
         System.out.println("\t-------------------------------------------------------------------");
     }
     public boolean isTasksListEmpty() {
-        if (numberOfTasks == 0) {
+        if (tasks.isEmpty()) {
             System.out.println("\tThere are no tasks in your list! Please add some tasks.");
             System.out.println("\t-------------------------------------------------------------------");
             return true;
@@ -51,7 +57,7 @@ public class TasksList {
         }
 
         int taskNumber = Integer.parseInt(arguments[1]) - 1;
-        Task taskToEdit = tasks[taskNumber];
+        Task taskToEdit = tasks.get(taskNumber);
 
         if (isAlreadyMarked(isDone, taskToEdit) || isAlreadyUnmarked(isDone, taskToEdit)) {
             return;
@@ -91,5 +97,16 @@ public class TasksList {
     }
     public int getNumberOfTasks() {
         return numberOfTasks;
+    }
+
+    public void delete(String[] arguments) {
+        int taskNumber = Integer.parseInt(arguments[1]) - 1;
+        Task taskToDelete = tasks.get(taskNumber);
+
+        tasks.remove(taskToDelete);
+        numberOfTasks--;
+        System.out.println("\t Done! I have deleted the following task.");
+        System.out.println(taskToDelete);
+        System.out.println("\tNow you have " + numberOfTasks + " tasks in your list");
     }
 }
