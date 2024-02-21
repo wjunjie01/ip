@@ -1,6 +1,8 @@
 package Tasks;
 
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class TasksList {
     private int numberOfTasks = 0;
@@ -108,5 +110,30 @@ public class TasksList {
         System.out.println("\t Done! I have deleted the following task.");
         System.out.println(taskToDelete);
         System.out.println("\tNow you have " + numberOfTasks + " tasks in your list");
+    }
+
+    public void outputDataIntoFile(String outputFilePath) throws IOException {
+        FileWriter fw = new FileWriter(outputFilePath);
+        for (Task task: tasks) {
+            String output = task.getTaskType() +  " | " + task.getTaskName();
+            switch (task.getTaskType()) {
+            case "D":
+                Deadline deadline = (Deadline) task;
+                output = output.concat(" | " + deadline.getDeadline());
+                break;
+
+            case "E":
+                Event event = (Event) task;
+                output = output.concat(" | " + event.getStart() + " | " + event.getEnd());
+                break;
+
+            default:
+                break;
+            }
+            output = output + " | " + task.isTaskDone() + "\n";
+            fw.write(output);
+        }
+
+        fw.close();
     }
 }
