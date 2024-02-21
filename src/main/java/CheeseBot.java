@@ -4,16 +4,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
 public class CheeseBot {
     private final static TasksList tasksList = new TasksList();
-    private final static Path inFilePath = Paths.get("./data/CheeseBot.txt");
-    private final static Path outFilePath = Paths.get("./data/temp.txt");
-    private final static File inFile = inFilePath.toFile();
-    private final static File outFile = outFilePath.toFile();
+    private final static String inFilePath = "./data/CheeseBot.txt";
+    private final static String outFilePath = "./data/temp.txt";
+    private final static File inFile = new File(inFilePath);
+    private final static File outFile = new File(outFilePath);
 
     public static void main(String[] args) {
         printGreeting();
@@ -29,13 +29,23 @@ public class CheeseBot {
     }
 
     private static void storeData() {
+        storeDataIntoTempFile();
         copyData();
         deleteTempFile();
     }
 
+    private static void storeDataIntoTempFile() {
+        try {
+            tasksList.outputDataIntoFile(outFilePath);
+        } catch (IOException e) {
+            System.out.println("Cannot save to output file!");
+            System.exit(1);
+        }
+    }
+
     private static void deleteTempFile() {
         try {
-            Files.delete(outFilePath);
+            Files.delete(Paths.get(outFilePath));
         } catch (IOException e) {
             System.out.println("Temp file cannot be deleted");
             System.exit(1);
@@ -44,22 +54,46 @@ public class CheeseBot {
 
     private static void copyData() {
         try {
-            Files.copy(inFilePath, outFilePath);
+
+            if (Files.size(Paths.get(outFilePath)) == 0) {
+                return;
+            }
+            Files.copy(Paths.get(outFilePath), Paths.get(inFilePath), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             System.out.println("Data file cannot be replaced");
             System.exit(1);
         }
     }
 
-
-
     private static void readFromInputFile() throws FileNotFoundException {
         Scanner scanner = new Scanner(inFile);
+
         while (scanner.hasNext()) {
             String nextLine = scanner.nextLine();
-            String[] arguments = nextLine.split("\\|");
-            botAction(arguments);
+            String[] arguments = nextLine.split(" \\| ");
+            boolean isTaskDone = Boolean.parseBoolean(arguments[arguments.length - 1]);
+
+            switch (arguments[0]) {
+            case "T":
+                Todo newTodo = new Todo(arguments[1]);
+                newTodo.setTaskDone(isTaskDone);
+                tasksList.addTask(newTodo);
+                break;
+
+            case "D":
+                Deadline newDeadline = new Deadline(arguments[1], arguments[2]);
+                newDeadline.setTaskDone(isTaskDone);
+                tasksList.addTask(newDeadline);
+                break;
+
+            case "E":
+                Event newEvent = new Event(arguments[1], arguments[2], arguments[3]);
+                newEvent.setTaskDone(isTaskDone);
+                tasksList.addTask(newEvent);
+                break;
+            }
         }
+        scanner.close();
     }
 
     private static void createFile(File file) {
@@ -69,7 +103,6 @@ public class CheeseBot {
         } catch (IOException e) {
             System.exit(1);
         }
-
     }
 
     private static void printGreeting() {
