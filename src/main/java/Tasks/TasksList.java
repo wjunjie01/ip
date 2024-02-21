@@ -1,5 +1,9 @@
 package Tasks;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
+
 public class TasksList {
     private int numberOfTasks = 0;
     private final Task[] tasks = new Task[100];
@@ -91,5 +95,30 @@ public class TasksList {
     }
     public int getNumberOfTasks() {
         return numberOfTasks;
+    }
+
+    public void outputDataIntoFile(String outputFilePath) throws IOException {
+        FileWriter fw = new FileWriter(outputFilePath);
+        for (Task task: Arrays.copyOf(tasks, numberOfTasks)) {
+            String output = task.getTaskType() +  " | " + task.getTaskName();
+            switch (task.getTaskType()) {
+            case "D":
+                Deadline deadline = (Deadline) task;
+                output = output.concat(" | " + deadline.getDeadline());
+                break;
+
+            case "E":
+                Event event = (Event) task;
+                output = output.concat(" | " + event.getStart() + " | " + event.getEnd());
+                break;
+
+            default:
+                break;
+            }
+            output = output + " | " + task.isTaskDone() + "\n";
+            fw.write(output);
+        }
+
+        fw.close();
     }
 }
