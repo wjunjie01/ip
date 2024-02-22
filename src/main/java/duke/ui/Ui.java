@@ -34,6 +34,7 @@ public class Ui {
     }
     public static void printListTasks(TaskList taskList) {
         System.out.println("The tasks in your list are: ");
+        //Iterates through the task in the task list, gets the task and prints it
         for (int i = 0; i < taskList.taskList.size(); i++) {
             System.out.println((i + 1) + "." + taskList.taskList.get(i).toString());
         }
@@ -63,5 +64,21 @@ public class Ui {
         System.out.println("\t" + taskList.taskList.get(taskIndex).toString());
         System.out.println("You now have " + Task.getTaskCount() + " task(s) in the list.");
         System.out.println(LINE);
+    }
+
+    public static void printFoundTask(Task task, int count) {
+        if (count == 1) {
+            System.out.println("Here are the matching tasks in your list: ");
+            System.out.println(LINE);
+        }
+        System.out.println(count + ". " + task);
+    }
+
+    public static void printNotFoundTask(int count) {
+        Ui.printLine();
+        if (count == 0) {
+            System.out.println("Hmm... task not found :( ");
+            Ui.printLine();
+        }
     }
 }

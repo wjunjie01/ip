@@ -7,7 +7,7 @@ import duke.ui.Ui;
 /**
  * Adds a new deadline task to the task list.
  */
-public class DeadlineCommand implements Command {
+public class DeadlineCommand extends Command {
     private final String TASK_DESCRIPTION;
     private final String BY;
 

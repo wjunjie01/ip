@@ -6,7 +6,7 @@ import duke.ui.Ui;
 /**
  * Removes a task from the task list.
  */
-public class DeleteCommand implements Command{
+public class DeleteCommand extends Command{
     private final int TASK_INDEX;
 
     /**

@@ -7,7 +7,7 @@ import duke.ui.Ui;
 /**
  * Adds a new todo task to the task list.
  */
-public class TodoCommand implements Command {
+public class TodoCommand extends Command {
     public static final int BEGIN_TODO_INDEX = 5;
 
     /**

@@ -3,10 +3,11 @@ package duke.command;
 import duke.Duke;
 import duke.task.TaskList;
 
+
 /**
  * Exits the program.
  */
-public class ByeCommand implements Command {
+public class ByeCommand extends Command {
     /**
      * Change the exit variable to be true, which exits the program.
      *
