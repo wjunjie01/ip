@@ -54,10 +54,6 @@ public class CheeseBot {
 
     private static void copyData() {
         try {
-
-            if (Files.size(Paths.get(outFilePath)) == 0) {
-                return;
-            }
             Files.copy(Paths.get(outFilePath), Paths.get(inFilePath), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             System.out.println("Data file cannot be replaced");
