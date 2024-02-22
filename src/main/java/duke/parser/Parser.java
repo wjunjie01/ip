@@ -4,10 +4,25 @@ import duke.command.*;
 import duke.task.TaskList;
 import duke.DukeException;
 
+/**
+ * Parser class parses the inputs provided by the user.
+ * Matches it to the corresponding command to be executed.
+ */
 public class Parser {
     public static final int BEGIN_DEADLINE_INDEX = 9;
     public static final int BEGIN_EVENT_INDEX = 6;
 
+
+    /**
+     * Parses input provided by the user.
+     * Matches it to the appropriate parser method / command.
+     * And throws an error if there is any error in the inputs.
+     *
+     * @param input
+     * @param taskList
+     * @return Command
+     * @throws DukeException
+     */
 
     public static Command parse(String input, TaskList taskList) throws DukeException {
         String firstWord = input.split(" ")[0];
@@ -46,6 +61,15 @@ public class Parser {
         return new FindCommand(inputArray[1]);
     }
 
+    /**
+     * Parses the input under the delete function to check for errors.
+     * Returns the delete command to be executed with the task index to be deleted.
+     *
+     * @param input
+     * @param taskList
+     * @return Command
+     * @throws DukeException
+     */
     public static Command parseDeleteTask(String input, TaskList taskList) throws DukeException {
         String[] inputArray = input.split(" ");
 
@@ -69,6 +93,16 @@ public class Parser {
         }
         return new DeleteCommand(taskIndex);
     }
+
+    /**
+     * Parses the input under the mark function to check for errors.
+     * Returns the mark command to be executed with the task index to be marked.
+     *
+     * @param input
+     * @param taskList
+     * @return Command
+     * @throws DukeException
+     */
     public static Command parseMarkTask(String input, TaskList taskList) throws DukeException {
         String[] inputArray = input.split(" ");
 
@@ -93,6 +127,15 @@ public class Parser {
         return new MarkCommand(taskIndex);
     }
 
+    /**
+     * Parses the input under the unmark function to check for errors.
+     * Returns the unmark command to be executed with the task index to be unmark.
+     *
+     * @param input
+     * @param taskList
+     * @return Command
+     * @throws DukeException
+     */
     public static Command parseUnmarkTask(String input, TaskList taskList) throws DukeException {
         String[] inputArray = input.split(" ");
 
@@ -118,6 +161,14 @@ public class Parser {
         return new UnmarkCommand(taskIndex);
     }
 
+    /**
+     * Parses the input under the Todo function to check for errors.
+     * Returns the Todo command.
+     *
+     * @param input
+     * @return Command
+     * @throws DukeException
+     */
     public static Command parseTodoTask(String input) throws DukeException {
         if (input.split(" ").length < 2){
             throw new DukeException("Your todo task cannot be empty! Correct usage: todo [Name of task]");
@@ -125,6 +176,14 @@ public class Parser {
         return new TodoCommand();
     }
 
+    /**
+     * Parses the input under the deadline function to check for errors.
+     * Returns the deadline command to be executed with the task and the deadline.
+     *
+     * @param input
+     * @return Command
+     * @throws DukeException
+     */
     public static Command parseDeadlineTask(String input) throws DukeException {
         String taskInformation = input.substring(BEGIN_DEADLINE_INDEX);
         String[] taskInfoArray = taskInformation.split(" /by ");
@@ -147,6 +206,14 @@ public class Parser {
         return new DeadlineCommand(taskInfoArray[0], taskInfoArray[1]);
     }
 
+    /**
+     * Parses the input under the event function to check for errors.
+     * Returns the event command to be executed with the task, 'from' date and 'to' date.
+     *
+     * @param input
+     * @return Command
+     * @throws DukeException
+     */
     public static Command parseEventTask(String input) throws DukeException {
         String taskInformation = input.substring(BEGIN_EVENT_INDEX);
         String[] fromSplitArray = taskInformation.split(" /from ");
@@ -168,5 +235,4 @@ public class Parser {
 
         return new EventCommand(taskDescription, startDate, endDate);
     }
-    
 }
