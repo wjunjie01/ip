@@ -1,3 +1,4 @@
 T | 1 | walk the dog
 D | 0 | walk the cat | 6pm
 E | 1 | walk the turtle | Monday 4pm-6pm
+T | 0 | hi

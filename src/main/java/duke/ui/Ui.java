@@ -65,4 +65,20 @@ public class Ui {
         System.out.println("You now have " + Task.getTaskCount() + " task(s) in the list.");
         System.out.println(LINE);
     }
+
+    public static void printFoundTask(Task task, int count) {
+        if (count == 1) {
+            System.out.println("Here are the matching tasks in your list: ");
+            System.out.println(LINE);
+        }
+        System.out.println(count + ". " + task);
+    }
+
+    public static void printNotFoundTask(int count) {
+        Ui.printLine();
+        if (count == 0) {
+            System.out.println("Hmm... task not found :( ");
+            Ui.printLine();
+        }
+    }
 }

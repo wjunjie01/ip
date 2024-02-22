@@ -8,6 +8,7 @@ public class Parser {
     public static final int BEGIN_DEADLINE_INDEX = 9;
     public static final int BEGIN_EVENT_INDEX = 6;
 
+
     public static Command parse(String input, TaskList taskList) throws DukeException {
         String firstWord = input.split(" ")[0];
 
@@ -28,9 +29,21 @@ public class Parser {
             return parseEventTask(input);
         case "delete":
             return parseDeleteTask(input, taskList);
+        case "find":
+            return parseFindTask(input);
         default:
             throw new DukeException("Not a valid command!!");
         }
+    }
+
+    public static Command parseFindTask(String input) throws DukeException {
+        String[] inputArray = input.split(" ", 2);
+        if (inputArray[1].trim().isEmpty()) {
+            throw new DukeException("You must specify a keyword to find! "
+                    + "Correct usage: find [Keyword]");
+        }
+
+        return new FindCommand(inputArray[1]);
     }
 
     public static Command parseDeleteTask(String input, TaskList taskList) throws DukeException {
