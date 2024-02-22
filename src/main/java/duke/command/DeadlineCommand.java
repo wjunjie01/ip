@@ -32,6 +32,6 @@ public class DeadlineCommand extends Command {
     public void execute(String input, TaskList taskList) {
         Deadline deadline = new Deadline(TASK_DESCRIPTION, BY);
         taskList.addTask(deadline);
-        Ui.printAddTask(TASK_DESCRIPTION);
+        Ui.printAddTask(TASK_DESCRIPTION, taskList);
     }
 }

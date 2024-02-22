@@ -15,6 +15,10 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(String input, TaskList taskList) {
+        if (taskList.taskList.isEmpty()) {
+            Ui.printListNoTasks();
+            return;
+        }
         Ui.printListTasks(taskList);
     }
 }

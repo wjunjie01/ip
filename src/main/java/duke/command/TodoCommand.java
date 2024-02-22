@@ -20,6 +20,6 @@ public class TodoCommand extends Command {
     public void execute(String input, TaskList taskList) {
         String taskDescription = input.substring(BEGIN_TODO_INDEX);
         taskList.addTask(new Todo(taskDescription));
-        Ui.printAddTask(taskDescription);
+        Ui.printAddTask(taskDescription, taskList);
     }
 }

@@ -15,7 +15,6 @@ public class Duke {
     public Duke(String filePath){
         isExit = false;
         taskList = new TaskList();
-
         storage = new Storage(filePath);
 
         try {

@@ -8,7 +8,6 @@ import duke.DukeException;
  * It consists of the basic methods that can be used throughout the task derivative classes
  */
 public class Task {
-    protected static int taskCount = 0;
     protected String description;
     protected boolean isDone;
 
@@ -20,7 +19,6 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        taskCount += 1;
     }
 
     /**
@@ -30,15 +28,6 @@ public class Task {
      */
     public String getStatus() {
         return (isDone ? "X": " ");
-    }
-
-    /**
-     * Returns the number of tasks in the list
-     *
-     * @return int
-     */
-    public static int getTaskCount() {
-        return taskCount;
     }
 
     /**

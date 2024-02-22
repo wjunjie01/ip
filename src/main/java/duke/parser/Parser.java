@@ -23,7 +23,6 @@ public class Parser {
      * @return Command
      * @throws DukeException
      */
-
     public static Command parse(String input, TaskList taskList) throws DukeException {
         String firstWord = input.split(" ")[0];
 
@@ -51,6 +50,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input under the find function to check for errors
+     * Returns the find command to find the keyword in the task list
+     *
+     * @param input
+     * @return Command
+     * @throws DukeException
+     */
     public static Command parseFindTask(String input) throws DukeException {
         String[] inputArray = input.split(" ", 2);
         if (inputArray[1].trim().isEmpty()) {
