@@ -16,7 +16,7 @@ public class FindCommand extends Command {
      * @param keyword The keyword to find in the task list.
      */
     public FindCommand(String keyword) {
-        this.keyword = keyword;
+        this.keyword = keyword.toLowerCase();
     }
 
     /**
@@ -30,7 +30,7 @@ public class FindCommand extends Command {
         int count = 0;
 
         for (Task task : taskList.taskList) {
-            if (task.toString().contains(keyword)) {
+            if (task.toString().toLowerCase().contains(keyword)) {
                 count += 1;
                 Ui.printFoundTask(task, count);
             }

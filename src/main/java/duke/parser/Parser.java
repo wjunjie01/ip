@@ -9,10 +9,6 @@ import duke.DukeException;
  * Matches it to the corresponding command to be executed.
  */
 public class Parser {
-    public static final int BEGIN_DEADLINE_INDEX = 9;
-    public static final int BEGIN_EVENT_INDEX = 6;
-
-
     /**
      * Parses input provided by the user.
      * Matches it to the appropriate parser method / command.
@@ -193,8 +189,8 @@ public class Parser {
      * @throws DukeException Exception thrown when the field is empty or erroneous.
      */
     public static Command parseDeadlineTask(String input) throws DukeException {
-        String taskInformation = input.substring(BEGIN_DEADLINE_INDEX);
-        String[] taskInfoArray = taskInformation.split(" /by ");
+        String[] taskInformation = input.split(" ", 2);
+        String[] taskInfoArray = taskInformation[1].split(" /by ");
 
         if (taskInfoArray[0].trim().isEmpty()) {
             throw new DukeException("Your deadline task cannot be empty! "
@@ -223,15 +219,15 @@ public class Parser {
      * @throws DukeException Exception thrown when the field is empty or erroneous.
      */
     public static Command parseEventTask(String input) throws DukeException {
-        String taskInformation = input.substring(BEGIN_EVENT_INDEX);
-        String[] fromSplitArray = taskInformation.split(" /from ");
+        String[] taskInformation = input.split(" ", 2);
+        String[] fromSplitArray = taskInformation[1].split(" /from ", 2);
 
         if (fromSplitArray.length < 2 || !fromSplitArray[1].contains(" /to ")) {
             throw new DukeException("Your event task must include /from and /to ! "
                     + "Correct usage: event [name of task] /from [start date] /to [end date]");
         }
 
-        String[] toSplitArray = fromSplitArray[1].split(" /to ");
+        String[] toSplitArray = fromSplitArray[1].split(" /to ", 2);
         String taskDescription = fromSplitArray[0].trim();
         String startDate = toSplitArray[0].trim();
         String endDate = toSplitArray[1].trim();
