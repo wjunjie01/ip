@@ -8,18 +8,25 @@ import duke.ui.Ui;
  * Adds a new todo task to the task list.
  */
 public class TodoCommand extends Command {
-    public static final int BEGIN_TODO_INDEX = 5;
+    private final String TASK_DESCRIPTION;
+
+    /**
+     * Creates and initialises the parsed todo task.
+     *
+     * @param TASK_DESCRIPTION Parsed todo description to be added.
+     */
+    public TodoCommand(String TASK_DESCRIPTION) {
+        this.TASK_DESCRIPTION = TASK_DESCRIPTION;
+    }
 
     /**
      * Adds a new todo task to the task list and prints the changes.
      *
-     * @param input
-     * @param taskList
+     * @param taskList The existing task list that stores the tasks.
      */
     @Override
-    public void execute(String input, TaskList taskList) {
-        String taskDescription = input.substring(BEGIN_TODO_INDEX);
-        taskList.addTask(new Todo(taskDescription));
-        Ui.printAddTask(taskDescription, taskList);
+    public void execute(TaskList taskList) {
+        taskList.addTask(new Todo(TASK_DESCRIPTION));
+        Ui.printAddTask(TASK_DESCRIPTION, taskList);
     }
 }

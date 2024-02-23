@@ -1,20 +1,19 @@
 package duke.task;
 
-import duke.Duke;
 import duke.DukeException;
 
 /**
- * The task class is the base superclass for all the task derivatives that follow
- * It consists of the basic methods that can be used throughout the task derivative classes
+ * The task class is the base superclass for all the task derivatives that follow.
+ * It consists of the basic methods that can be used throughout the task derivative classes.
  */
 public class Task {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Constructs the task class with the description and a "not done" status
+     * Constructs the task class with the description and a "not done" status.
      *
-      * @param description
+     * @param description Task's name to be added.
      */
     public Task(String description) {
         this.description = description;
@@ -22,32 +21,33 @@ public class Task {
     }
 
     /**
-     * Returns the status of the completion of the task
+     * Returns the status of the completion of the task.
+     * A 'X' represent the task is completed while a ' ' means the task is not completed.
      *
-     * @return String
+     * @return String Task's completed status.
      */
     public String getStatus() {
         return (isDone ? "X": " ");
     }
 
     /**
-     * Marks the task as done
+     * Marks the task as done.
      */
     public void markTask() {
         this.isDone = true;
     }
 
     /**
-     * Marks the task as not done
+     * Marks the task as not done.
      */
     public void unmarkTask() {
         this.isDone = false;
     }
 
     /**
-     * Returns the format of the task to be printed
+     * Returns the format of the task to be printed.
      *
-     * @return String
+     * @return String Format of the todo task to print.
      */
     @Override
     public String toString() {
@@ -55,22 +55,21 @@ public class Task {
     }
 
     /**
-     * Converts the task into the file format to be written
+     * Converts the task into the file format to be written.
      *
-     * @return String
+     * @return String Format of the task to be written and saved into the file.
      */
     public String toFileFormat() {
         return " | " + (this.isDone? "1" : "0") + " | " + this.description;
     }
 
     /**
-     * Loads the file's inputs and categorises into its respective task type
-     * Returns the task and its type to be added into the task list
-     * Throws an error if the file format is incorrect
+     * Loads the file's inputs and categorises into its respective task type.
+     * Returns the task and its type to be added into the task list.
      *
-     * @param line
-     * @return Task
-     * @throws DukeException
+     * @param line Input that is read from the file.
+     * @return Task The relevant task and it's field.
+     * @throws DukeException Exception is thrown when the file format is incorrect.
      */
     public static Task loadFromFile(String line) throws DukeException {
         //splits according to " | "
@@ -93,7 +92,6 @@ public class Task {
             String[] eventFromToArray = eventFromTo.split("-");
             String from = eventFromToArray[0];
             String to = eventFromToArray[1];
-
             task = new Event(taskDescription, from, to);
             break;
         default:

@@ -13,7 +13,7 @@ public class MarkCommand extends Command {
     /**
      * Create and initialise task index from parsed task.
      *
-     * @param taskIndex
+     * @param taskIndex Parsed task index to be marked.
      */
     public MarkCommand(int taskIndex) {
         this.TASK_INDEX = taskIndex;
@@ -23,11 +23,10 @@ public class MarkCommand extends Command {
      * Marks the corresponding task as done according to task index - 1.
      * Prints the changes thereafter.
      *
-     * @param input
-     * @param taskList
+     * @param taskList The existing task list that stores the tasks.
      */
     @Override
-    public void execute(String input, TaskList taskList) {
+    public void execute(TaskList taskList) {
         taskList.taskList.get(TASK_INDEX - 1).markTask();
         Ui.printMarkTask(TASK_INDEX - 1, taskList);
     }

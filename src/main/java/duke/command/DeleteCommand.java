@@ -12,7 +12,7 @@ public class DeleteCommand extends Command {
     /**
      * Create and initialise task index from parsed task.
      *
-     * @param taskIndex
+     * @param taskIndex Index of the task to be deleted.
      */
     public DeleteCommand(int taskIndex) {
         this.TASK_INDEX = taskIndex;
@@ -22,11 +22,10 @@ public class DeleteCommand extends Command {
      * Deletes the corresponding task from the task list according to task index - 1.
      * Prints the changes.
      *
-     * @param input
-     * @param taskList
+     * @param taskList The existing task list that stores the tasks.
      */
     @Override
-    public void execute (String input, TaskList taskList) {
+    public void execute (TaskList taskList) {
         Ui.printDeleteTask(TASK_INDEX - 1, taskList);
         taskList.taskList.remove(TASK_INDEX - 1);
     }

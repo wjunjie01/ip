@@ -32,7 +32,7 @@ public class Duke {
             try {
                 String input = Ui.readUserInput();
                 Command command = Parser.parse(input, taskList);
-                command.execute(input, taskList);
+                command.execute(taskList);
                 storage.saveTask(taskList);
             } catch (DukeException e) {
                 Ui.printLine();

@@ -1,15 +1,15 @@
 package duke.task;
 
 /**
- * Deadline is a type of task that has a description and a deadline
+ * Deadline is a type of task that has a description and a deadline.
  */
 public class Deadline extends Task {
     protected String by;
 
     /**
-     * Constructs the deadline class with the description and a by date to complete by
+     * Constructs the deadline class with the description and a by date to complete by.
      *
-     * @param description
+     * @param description Deadline task's name to be added.
      */
     public Deadline(String description, String by) {
         super(description);
@@ -17,9 +17,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns the format of the deadline task to be printed
+     * Returns the format of the deadline task to be printed.
      *
-     * @return String
+     * @return String Format of the deadline task to print.
      */
     @Override
     public String toString() {
@@ -27,9 +27,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Converts the deadline task into the specific file format to be written
+     * Converts the deadline task into the specific file format to be written.
      *
-     * @return String
+     * @return String Format of the task to be written and saved into the file.
      */
     @Override
     public String toFileFormat() {

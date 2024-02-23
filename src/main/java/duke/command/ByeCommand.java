@@ -11,11 +11,10 @@ public class ByeCommand extends Command {
     /**
      * Change the exit variable to be true, which exits the program.
      *
-     * @param input
-     * @param taskList
+     * @param taskList The existing task list that stores the tasks.
      */
     @Override
-    public void execute(String input, TaskList taskList) {
+    public void execute(TaskList taskList) {
         Duke.isExit = true;
     }
 }

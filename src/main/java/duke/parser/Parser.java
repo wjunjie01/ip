@@ -18,10 +18,10 @@ public class Parser {
      * Matches it to the appropriate parser method / command.
      * And throws an error if there is any error in the inputs.
      *
-     * @param input
-     * @param taskList
-     * @return Command
-     * @throws DukeException
+     * @param input The user's inputs.
+     * @param taskList The existing task list that stores the tasks.
+     * @return Command The relevant command to be executed.
+     * @throws DukeException Exception thrown when the user's command is not valid.
      */
     public static Command parse(String input, TaskList taskList) throws DukeException {
         String firstWord = input.split(" ")[0];
@@ -51,12 +51,12 @@ public class Parser {
     }
 
     /**
-     * Parses the input under the find function to check for errors
-     * Returns the find command to find the keyword in the task list
+     * Parses the input under the find function to check for errors.
+     * Returns the find command to find the keyword in the task list.
      *
-     * @param input
-     * @return Command
-     * @throws DukeException
+     * @param input The user's inputs to be checked for the correct format.
+     * @return Command Find command to be executed.
+     * @throws DukeException Exception thrown when field is empty.
      */
     public static Command parseFindTask(String input) throws DukeException {
         String[] inputArray = input.split(" ", 2);
@@ -72,10 +72,10 @@ public class Parser {
      * Parses the input under the delete function to check for errors.
      * Returns the delete command to be executed with the task index to be deleted.
      *
-     * @param input
-     * @param taskList
-     * @return Command
-     * @throws DukeException
+     * @param input The user's inputs to be checked for the correct format.
+     * @param taskList The existing task list that stores the tasks.
+     * @return Command Delete command to be executed.
+     * @throws DukeException Exception thrown when field is empty.
      */
     public static Command parseDeleteTask(String input, TaskList taskList) throws DukeException {
         String[] inputArray = input.split(" ");
@@ -105,10 +105,10 @@ public class Parser {
      * Parses the input under the mark function to check for errors.
      * Returns the mark command to be executed with the task index to be marked.
      *
-     * @param input
-     * @param taskList
-     * @return Command
-     * @throws DukeException
+     * @param input The user's inputs to be checked for the correct format.
+     * @param taskList The existing task list that stores the tasks.
+     * @return Command Mark command to be executed.
+     * @throws DukeException Exception thrown when the field is empty or erroneous.
      */
     public static Command parseMarkTask(String input, TaskList taskList) throws DukeException {
         String[] inputArray = input.split(" ");
@@ -138,10 +138,10 @@ public class Parser {
      * Parses the input under the unmark function to check for errors.
      * Returns the unmark command to be executed with the task index to be unmark.
      *
-     * @param input
-     * @param taskList
-     * @return Command
-     * @throws DukeException
+     * @param input The user's inputs to be checked for the correct format.
+     * @param taskList The existing task list that stores the tasks.
+     * @return Command Unmark command to be executed.
+     * @throws DukeException Exception thrown when the field is empty or erroneous.
      */
     public static Command parseUnmarkTask(String input, TaskList taskList) throws DukeException {
         String[] inputArray = input.split(" ");
@@ -172,24 +172,25 @@ public class Parser {
      * Parses the input under the Todo function to check for errors.
      * Returns the Todo command.
      *
-     * @param input
-     * @return Command
-     * @throws DukeException
+     * @param input The user's inputs to be checked for the correct format.
+     * @return Command Todo command to be executed.
+     * @throws DukeException Exception thrown when the field is empty.
      */
     public static Command parseTodoTask(String input) throws DukeException {
-        if (input.split(" ").length < 2) {
+        String[] inputArray = input.split(" ", 2);
+        if (inputArray.length < 2) {
             throw new DukeException("Your todo task cannot be empty! Correct usage: todo [name of task]");
         }
-        return new TodoCommand();
+        return new TodoCommand(inputArray[1]);
     }
 
     /**
      * Parses the input under the deadline function to check for errors.
      * Returns the deadline command to be executed with the task and the deadline.
      *
-     * @param input
-     * @return Command
-     * @throws DukeException
+     * @param input The user's inputs to be checked for the correct format.
+     * @return Command Deadline command to be executed.
+     * @throws DukeException Exception thrown when the field is empty or erroneous.
      */
     public static Command parseDeadlineTask(String input) throws DukeException {
         String taskInformation = input.substring(BEGIN_DEADLINE_INDEX);
@@ -217,9 +218,9 @@ public class Parser {
      * Parses the input under the event function to check for errors.
      * Returns the event command to be executed with the task, 'from' date and 'to' date.
      *
-     * @param input
-     * @return Command
-     * @throws DukeException
+     * @param input The user's inputs to be checked for the correct format.
+     * @return Command Event command to be executed.
+     * @throws DukeException Exception thrown when the field is empty or erroneous.
      */
     public static Command parseEventTask(String input) throws DukeException {
         String taskInformation = input.substring(BEGIN_EVENT_INDEX);
