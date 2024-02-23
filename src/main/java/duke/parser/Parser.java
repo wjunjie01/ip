@@ -62,7 +62,7 @@ public class Parser {
         String[] inputArray = input.split(" ", 2);
         if (inputArray[1].trim().isEmpty()) {
             throw new DukeException("You must specify a keyword to find! "
-                    + "Correct usage: find [Keyword]");
+                    + "Correct usage: find [keyword]");
         }
 
         return new FindCommand(inputArray[1]);
@@ -84,19 +84,19 @@ public class Parser {
 
         if (inputArray.length < 2) {
             throw new DukeException("Please specify a VALID task number to delete! "
-                    + "Correct usage: mark [Task Number]");
+                    + "Correct usage: mark [task number]");
         }
 
         try {
             taskIndex = Integer.parseInt(inputArray[1]);
         } catch (NumberFormatException e) {
             throw new DukeException("Task number must be in integer! "
-                    + "Correct usage: delete [Task Number]");
+                    + "Correct usage: delete [task number]");
         }
 
         if ((taskIndex > taskList.taskList.size()) || (taskIndex <= 0)) {
             throw new DukeException("Please specify a task number that is within the list! "
-                    + "Correct usage: delete [Task Number]");
+                    + "Correct usage: delete [task number]");
         }
         return new DeleteCommand(taskIndex);
     }
@@ -115,7 +115,7 @@ public class Parser {
 
         if (inputArray.length < 2) {
             throw new DukeException("Please specify a task number to mark! "
-                    + "Correct usage: mark [Task Number]");
+                    + "Correct usage: mark [task number]");
         }
 
         int taskIndex;
@@ -124,12 +124,12 @@ public class Parser {
             taskIndex = Integer.parseInt(inputArray[1]);
         } catch (NumberFormatException e) {
             throw new DukeException("Task number must be in integer! "
-                    + "Correct usage: mark [Task Number]");
+                    + "Correct usage: mark [task number]");
         }
 
         if (taskIndex > taskList.taskList.size() || (taskIndex <= 0)) {
             throw new DukeException("Please specify a task number that is within the list! "
-                    + "Correct usage: mark [Task Number]");
+                    + "Correct usage: mark [task number]");
         }
         return new MarkCommand(taskIndex);
     }
@@ -148,7 +148,7 @@ public class Parser {
 
         if (inputArray.length < 2) {
             throw new DukeException("Please specify a task number to mark! "
-                    + "Correct usage: unmark [Task Number]");
+                    + "Correct usage: unmark [task number]");
         }
 
         int taskIndex;
@@ -157,12 +157,12 @@ public class Parser {
             taskIndex = Integer.parseInt(inputArray[1]);
         } catch (NumberFormatException e) {
             throw new DukeException("duke.task.Task number must be in integer! "
-                    + "Correct usage: unmark [Task Number]");
+                    + "Correct usage: unmark [task number]");
         }
 
         if (taskIndex > taskList.taskList.size() || (taskIndex <= 0)) {
             throw new DukeException("Please specify a task number that is within the list! "
-                    + "Correct usage: unmark [Task Number]");
+                    + "Correct usage: unmark [task number]");
         }
 
         return new UnmarkCommand(taskIndex);
@@ -178,7 +178,7 @@ public class Parser {
      */
     public static Command parseTodoTask(String input) throws DukeException {
         if (input.split(" ").length < 2) {
-            throw new DukeException("Your todo task cannot be empty! Correct usage: todo [Name of task]");
+            throw new DukeException("Your todo task cannot be empty! Correct usage: todo [name of task]");
         }
         return new TodoCommand();
     }
@@ -197,17 +197,17 @@ public class Parser {
 
         if (taskInfoArray[0].trim().isEmpty()) {
             throw new DukeException("Your deadline task cannot be empty! "
-                    + "Correct usage: deadline [Name of task] /by [duke.task.Deadline]");
+                    + "Correct usage: deadline [name of task] /by [due date]");
         }
 
         if (taskInfoArray.length < 2) {
             throw new DukeException("You deadline task must include the '/by' keyword! "
-                    + "Correct usage: deadline [Name of task] /by [duke.task.Deadline]");
+                    + "Correct usage: deadline [name of task] /by [due date]");
         }
 
         if (taskInfoArray[1].trim().isEmpty()) {
             throw new DukeException("Your deadline cannot be empty! "
-                    + "Correct usage: deadline [Name of task] /by [duke.task.Deadline]");
+                    + "Correct usage: deadline [name of task] /by [due date]");
         }
 
         return new DeadlineCommand(taskInfoArray[0], taskInfoArray[1]);
@@ -227,7 +227,7 @@ public class Parser {
 
         if (fromSplitArray.length < 2 || !fromSplitArray[1].contains(" /to ")) {
             throw new DukeException("Your event task must include /from and /to ! "
-                    + "Correct usage: event [Name of task] /from [Start date] /to [End date]");
+                    + "Correct usage: event [name of task] /from [start date] /to [end date]");
         }
 
         String[] toSplitArray = fromSplitArray[1].split(" /to ");
@@ -237,7 +237,7 @@ public class Parser {
 
         if (startDate.isEmpty() || endDate.isEmpty() || taskDescription.isEmpty()) {
             throw new DukeException("You have a missing field, in either your task, start date or end date! "
-                    + "Correct usage: event [Name of task] /from [Start date] /to [End date]");
+                    + "Correct usage: event [name of task] /from [start date] /to [end date]");
         }
 
         return new EventCommand(taskDescription, startDate, endDate);
