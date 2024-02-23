@@ -177,7 +177,7 @@ public class Parser {
      * @throws DukeException
      */
     public static Command parseTodoTask(String input) throws DukeException {
-        if (input.split(" ").length < 2){
+        if (input.split(" ").length < 2) {
             throw new DukeException("Your todo task cannot be empty! Correct usage: todo [Name of task]");
         }
         return new TodoCommand();
@@ -195,17 +195,17 @@ public class Parser {
         String taskInformation = input.substring(BEGIN_DEADLINE_INDEX);
         String[] taskInfoArray = taskInformation.split(" /by ");
 
-        if (taskInfoArray[0].trim().isEmpty()){
+        if (taskInfoArray[0].trim().isEmpty()) {
             throw new DukeException("Your deadline task cannot be empty! "
                     + "Correct usage: deadline [Name of task] /by [duke.task.Deadline]");
         }
 
-        if (taskInfoArray.length < 2){
+        if (taskInfoArray.length < 2) {
             throw new DukeException("You deadline task must include the '/by' keyword! "
                     + "Correct usage: deadline [Name of task] /by [duke.task.Deadline]");
         }
 
-        if (taskInfoArray[1].trim().isEmpty()){
+        if (taskInfoArray[1].trim().isEmpty()) {
             throw new DukeException("Your deadline cannot be empty! "
                     + "Correct usage: deadline [Name of task] /by [duke.task.Deadline]");
         }

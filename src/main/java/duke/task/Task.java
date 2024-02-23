@@ -33,14 +33,14 @@ public class Task {
     /**
      * Marks the task as done
      */
-    public void markTask(){
+    public void markTask() {
         this.isDone = true;
     }
 
     /**
      * Marks the task as not done
      */
-    public void unmarkTask(){
+    public void unmarkTask() {
         this.isDone = false;
     }
 
@@ -50,7 +50,7 @@ public class Task {
      * @return String
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + getStatus() + "] " + this.description;
     }
 

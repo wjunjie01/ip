@@ -7,7 +7,7 @@ import duke.task.TaskList;
  * Marks the corresponding task as done.
  * Tasks that are done will display a '[X]' symbol.
  */
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     private final int TASK_INDEX;
 
     /**

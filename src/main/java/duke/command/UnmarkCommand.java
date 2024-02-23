@@ -7,7 +7,7 @@ import duke.ui.Ui;
  * Marks the corresponding task as not done.
  * Tasks that are not done will display a '[ ]' symbol.
  */
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     private final int TASK_INDEX;
 
     /**
@@ -15,7 +15,7 @@ public class UnmarkCommand extends Command{
      *
      * @param taskIndex
      */
-    public UnmarkCommand(int taskIndex){
+    public UnmarkCommand(int taskIndex) {
         this.TASK_INDEX = taskIndex;
     }
 

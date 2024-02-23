@@ -12,7 +12,7 @@ public class Duke {
     public static boolean isExit;
     public TaskList taskList;
     public Storage storage;
-    public Duke(String filePath){
+    public Duke(String filePath) {
         isExit = false;
         taskList = new TaskList();
         storage = new Storage(filePath);

@@ -18,23 +18,26 @@ public class Ui {
             + "\\____/\\__,_/_/ /_/\\___/\\__/  \n"
             + "                             \n";
 
-    public static String readUserInput(){
+    public static String readUserInput() {
         return in.nextLine();
     }
 
     public static void printLine() {
         System.out.println(LINE);
     }
+
     public static void printGoodbyeMessage() {
         System.out.println("Goodbye! See you again!");
         System.out.println(LINE);
     }
+
     public static void printWelcomeMessage() {
         System.out.println(LOGO);
         System.out.println("Hi! I'm Janet, your personal assistant.");
         System.out.println("What is your request?");
         System.out.println(LINE);
     }
+
     public static void printListTasks(TaskList taskList) {
         System.out.println("The tasks in your list are: ");
         //Iterates through the task in the task list, gets the task and prints it
@@ -49,19 +52,19 @@ public class Ui {
         System.out.println(LINE);
     }
 
-    public static void printMarkTask(int taskIndex, TaskList taskList){
+    public static void printMarkTask(int taskIndex, TaskList taskList) {
         System.out.println("Well done! This task is now done: ");
         System.out.println(taskList.taskList.get(taskIndex).toString());
         System.out.println(LINE);
     }
 
-    public static void printUnmarkTask(int taskIndex, TaskList taskList){
+    public static void printUnmarkTask(int taskIndex, TaskList taskList) {
         System.out.println("Boo! This task is not done yet! ");
         System.out.println(taskList.taskList.get(taskIndex).toString());
         System.out.println(LINE);
     }
 
-    public static void printAddTask(String taskDescription, TaskList taskList){
+    public static void printAddTask(String taskDescription, TaskList taskList) {
         System.out.println(LINE);
         System.out.println("added: " + taskDescription);
         System.out.println("You now have " + taskList.taskList.size() + " task"
