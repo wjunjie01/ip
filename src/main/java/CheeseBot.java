@@ -2,14 +2,11 @@ import Tasks.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
 public class CheeseBot {
-    private final static TasksList tasksList = new TasksList();
+    protected final static TasksList tasksList = new TasksList();
+    private static final Storage STORAGE = new Storage();
     private final static String inFilePath = "./data/CheeseBot.txt";
     private final static String outFilePath = "./data/temp.txt";
     private final static File inFile = new File(inFilePath);
@@ -18,87 +15,14 @@ public class CheeseBot {
     public static void main(String[] args) {
         printGreeting();
         try {
-            readFromInputFile();
+            STORAGE.readFromInputFile(inFile);
         } catch (FileNotFoundException e) {
-            createFile(inFile);
+            STORAGE.createFile(inFile);
         }
-        createFile(outFile);
+        STORAGE.createFile(outFile);
         inputLoop();
-        storeData();
+        STORAGE.storeData(inFile, outFile);
         printFarewell();
-    }
-
-    private static void storeData() {
-        storeDataIntoTempFile();
-        copyData();
-        deleteTempFile();
-    }
-
-    private static void storeDataIntoTempFile() {
-        try {
-            tasksList.outputDataIntoFile(outFilePath);
-        } catch (IOException e) {
-            System.out.println("Cannot save to output file!");
-            System.exit(1);
-        }
-    }
-
-    private static void deleteTempFile() {
-        try {
-            Files.delete(Paths.get(outFilePath));
-        } catch (IOException e) {
-            System.out.println("Temp file cannot be deleted");
-            System.exit(1);
-        }
-    }
-
-    private static void copyData() {
-        try {
-            Files.copy(Paths.get(outFilePath), Paths.get(inFilePath), StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            System.out.println("Data file cannot be replaced");
-            System.exit(1);
-        }
-    }
-
-    private static void readFromInputFile() throws FileNotFoundException {
-        Scanner scanner = new Scanner(inFile);
-
-        while (scanner.hasNext()) {
-            String nextLine = scanner.nextLine();
-            String[] arguments = nextLine.split(" \\| ");
-            boolean isTaskDone = Boolean.parseBoolean(arguments[arguments.length - 1]);
-
-            switch (arguments[0]) {
-            case "T":
-                Todo newTodo = new Todo(arguments[1]);
-                newTodo.setTaskDone(isTaskDone);
-                tasksList.addTask(newTodo);
-                break;
-
-            case "D":
-                Deadline newDeadline = new Deadline(arguments[1], arguments[2]);
-                newDeadline.setTaskDone(isTaskDone);
-                tasksList.addTask(newDeadline);
-                break;
-
-            case "E":
-                Event newEvent = new Event(arguments[1], arguments[2], arguments[3]);
-                newEvent.setTaskDone(isTaskDone);
-                tasksList.addTask(newEvent);
-                break;
-            }
-        }
-        scanner.close();
-    }
-
-    private static void createFile(File file) {
-        file.getParentFile().mkdirs();
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            System.exit(1);
-        }
     }
 
     private static void printGreeting() {
