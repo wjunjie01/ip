@@ -2,19 +2,24 @@ import java.util.Scanner;
 
 public class Ui {
     private static final Scanner SCANNER = new Scanner(System.in);
+    private static final String DIVIDER = "\t-------------------------------------------------------------------";
+
+    public void printDivider() {
+        System.out.println(DIVIDER);
+    }
     public void printGreeting() {
-        String greeting = "\t-------------------------------------------------------------------\n"
-                + "\tHello! I'm CheeseBot\n"
-                + "\tWhat can I do for you?\n"
-                + "\t-------------------------------------------------------------------";
+        printDivider();
+        String greeting = "\tHello! I'm CheeseBot\n" + "\tWhat can I do for you?";
         System.out.println(greeting);
+        printDivider();
     }
 
     public void printFarewell() {
-        String farewell = "\tBye. Hope to see you again soon!\n"
-                + "\t-------------------------------------------------------------------";
+        String farewell = "\tBye. Hope to see you again soon!";
         System.out.print(farewell);
+        printDivider();
     }
+
     public void printCommandList() {
         System.out.println("\tAvailable commands: list, mark, unmark, todo, deadline, event, help, bye\n");
         System.out.println("\tCommand 'list' usage: list\n" +
@@ -41,13 +46,13 @@ public class Ui {
         System.out.println("\tCommand 'bye' usage: bye\n" +
                 "\tFunction: Ends session with CheeseBot.");
 
-        System.out.println("\t-------------------------------------------------------------------");
+        printDivider();
     }
     public String getInput() {
         String inputPrompt = "\tPlease input your desired action or type 'help' for a list of commands: ";
         System.out.println(inputPrompt);
         String input = SCANNER.nextLine().strip();
-        System.out.println("\t-------------------------------------------------------------------");
+        printDivider();
         return input;
     }
 }

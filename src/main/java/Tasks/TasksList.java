@@ -20,7 +20,6 @@ public class TasksList {
         numberOfTasks++;
         System.out.println("\tYou have added: " + newTask.getTaskName());
         System.out.println("\tYou have a total of " + numberOfTasks + " completed and uncompleted tasks.");
-        System.out.println("\t-------------------------------------------------------------------");
     }
 
     public void printTasksList() {
@@ -42,12 +41,10 @@ public class TasksList {
         if (isAllTasksDone) {
             System.out.println("\tExcellent! You have completed all your tasks!");
         }
-        System.out.println("\t-------------------------------------------------------------------");
     }
     public boolean isTasksListEmpty() {
         if (tasks.isEmpty()) {
             System.out.println("\tThere are no tasks in your list! Please add some tasks.");
-            System.out.println("\t-------------------------------------------------------------------");
             return true;
         }
         return false;
@@ -76,13 +73,11 @@ public class TasksList {
             System.out.println("\tI've unmarked this task done for you:");
         }
         System.out.println("\t\t" + (taskNumber + 1) + ". " + taskToEdit);
-        System.out.println("\t-------------------------------------------------------------------");
     }
 
     private boolean isAlreadyUnmarked(boolean isDone, Task taskToEdit) {
         if (!taskToEdit.isTaskDone() && !isDone) {
             System.out.println("\tTask is already unmarked!");
-            System.out.println("\t-------------------------------------------------------------------");
             return true;
         }
         return false;
@@ -91,7 +86,6 @@ public class TasksList {
     private boolean isAlreadyMarked(boolean isDone, Task taskToEdit) {
         if (taskToEdit.isTaskDone() && isDone) {
             System.out.println("\tTask is already marked done!");
-            System.out.println("\t-------------------------------------------------------------------");
             return true;
         }
         return false;

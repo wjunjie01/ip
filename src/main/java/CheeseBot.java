@@ -65,6 +65,7 @@ public class CheeseBot {
                     break;
                 }
                 botAction(arguments);
+                UI.printDivider();
             } catch (InvalidInputException e) {
                 // No action required. Just catch the exception.
             }
@@ -183,6 +184,4 @@ public class CheeseBot {
             break;
         }
     }
-
-
 }
