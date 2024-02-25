@@ -45,8 +45,6 @@ public class Ui {
 
         System.out.println("\tCommand 'bye' usage: bye\n" +
                 "\tFunction: Ends session with CheeseBot.");
-
-        printDivider();
     }
     public String getInput() {
         String inputPrompt = "\tPlease input your desired action or type 'help' for a list of commands: ";

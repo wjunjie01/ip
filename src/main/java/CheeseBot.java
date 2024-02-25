@@ -47,6 +47,7 @@ public class CheeseBot {
 
         case "help":
             UI.printCommandList();
+            break;
 
         case "delete":
             tasksList.delete(arguments);
