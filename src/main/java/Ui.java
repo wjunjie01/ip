@@ -16,7 +16,7 @@ public class Ui {
 
     public void printFarewell() {
         String farewell = "\tBye. Hope to see you again soon!";
-        System.out.print(farewell);
+        System.out.println(farewell);
         printDivider();
     }
 
@@ -49,8 +49,7 @@ public class Ui {
     public String getInput() {
         String inputPrompt = "\tPlease input your desired action or type 'help' for a list of commands: ";
         System.out.println(inputPrompt);
-        String input = SCANNER.nextLine().strip();
-        printDivider();
-        return input;
+        return SCANNER.nextLine().strip();
+
     }
 }
