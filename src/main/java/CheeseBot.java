@@ -41,10 +41,15 @@ public class CheeseBot {
             tasksList.delete(arguments);
             break;
 
+        case "find":
+            tasksList.find(arguments);
+            break;
+
         default:
             addTask(arguments);
         }
     }
+
     public void inputLoop() {
         while (true) {
             try {
