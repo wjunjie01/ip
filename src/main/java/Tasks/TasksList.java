@@ -3,6 +3,7 @@ package Tasks;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
+import static java.util.stream.Collectors.toList;
 
 /**
  * Helper class to manage task-related operations. Primarily manages the array of tasks stored.
@@ -14,6 +15,31 @@ public class TasksList {
     /**
      * Lists all the tasks stored in the array of tasks.
      */
+    public void printFilteredList(ArrayList<Task> filteredList) {
+        if (filteredList.isEmpty()) {
+            System.out.println("\tThere are no matches!");
+            return;
+        }
+
+        int i = 0;
+        System.out.println("\tThe following matches what you are trying to find:");
+        for (Task task: filteredList) {
+            System.out.println("\t\t" + (i + 1) + "." + task);
+            i += 1;
+        }
+    }
+    public void find(String[] arguments) {
+        String keyword = arguments[1].toLowerCase();
+        ArrayList<Task> filteredList = filterTasksByKeyword(keyword);
+        printFilteredList(filteredList);
+    }
+
+    private ArrayList<Task> filterTasksByKeyword(String keyword) {
+        return (ArrayList<Task>) tasks.stream()
+                .filter(t -> t.getTaskName().toLowerCase().contains(keyword))
+                .collect(toList());
+    }
+
     public void listTasks() {
         if (isTasksListEmpty()) {
             return;

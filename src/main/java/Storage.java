@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 /**
@@ -87,22 +88,26 @@ public class Storage {
             String nextLine = scanner.nextLine();
             String[] arguments = nextLine.split(" \\| ");
             boolean isTaskDone = Boolean.parseBoolean(arguments[arguments.length - 1]);
+            String taskName = arguments[1];
 
             switch (arguments[0]) {
             case "T":
-                Todo newTodo = new Todo(arguments[1]);
+                Todo newTodo = new Todo(taskName);
                 newTodo.setTaskDone(isTaskDone);
                 CheeseBot.tasksList.addTask(newTodo);
                 break;
 
             case "D":
-                Deadline newDeadline = new Deadline(arguments[1], arguments[2]);
+                LocalDateTime by = LocalDateTime.parse(arguments[2]);
+                Deadline newDeadline = new Deadline(taskName, by);
                 newDeadline.setTaskDone(isTaskDone);
                 CheeseBot.tasksList.addTask(newDeadline);
                 break;
 
             case "E":
-                Event newEvent = new Event(arguments[1], arguments[2], arguments[3]);
+                LocalDateTime from = LocalDateTime.parse(arguments[2]);
+                LocalDateTime to = LocalDateTime.parse(arguments[3]);
+                Event newEvent = new Event(taskName, from, to);
                 newEvent.setTaskDone(isTaskDone);
                 CheeseBot.tasksList.addTask(newEvent);
                 break;

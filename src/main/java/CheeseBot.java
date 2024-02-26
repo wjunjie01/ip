@@ -2,6 +2,9 @@ import Tasks.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Main executable class that controls program flow
@@ -15,8 +18,9 @@ public class CheeseBot {
     private final static String outFilePath = "./data/temp.txt";
     private final static File inFile = new File(inFilePath);
     private final static File outFile = new File(outFilePath);
+    public final static DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
-    private void botAction(String[] arguments) {
+    private void botAction(String[] arguments) throws InvalidInputException {
         String command = arguments[0];
 
         switch (command) {
@@ -32,22 +36,23 @@ public class CheeseBot {
             tasksList.mark(arguments, false);
             break;
 
-        case "todo":
-            //Fallthrough
-        case "deadline":
-            //Fallthrough
-        case "event":
-            addTask(arguments);
-            break;
-
         case "help":
             UI.printCommandList();
             break;
 
         case "delete":
             tasksList.delete(arguments);
+            break;
+
+        case "find":
+            tasksList.find(arguments);
+            break;
+
+        default:
+            addTask(arguments);
         }
     }
+
     private void inputLoop() {
         while (true) {
             try {
@@ -88,13 +93,14 @@ public class CheeseBot {
         CheeseBot cheeseBot = new CheeseBot();
         cheeseBot.run();
     }
-
+  
     /**
      * Adds a task of a specific type (Todo, Deadline or Event) using the arguments supplied.
      *
      * @param arguments The required parsed arguments for each specific task type.
      */
-    public static void addTask(String[] arguments) {
+    
+    public static void addTask(String[] arguments) throws InvalidInputException {
         String command = arguments[0];
         String taskName = arguments[1];
 
@@ -104,15 +110,23 @@ public class CheeseBot {
             break;
 
         case "deadline":
-            String by = arguments[2];
-            tasksList.addTask(new Deadline(taskName, by));
-            break;
+            try {
+                LocalDateTime by = LocalDateTime.parse(arguments[2], INPUT_FORMAT);
+                tasksList.addTask(new Deadline(taskName, by));
+                break;
+            } catch (DateTimeParseException e) {
+                throw new InvalidInputException("Wrong time and date format for deadline task!");
+            }
 
         case "event":
-            String start = arguments[2];
-            String end = arguments[3];
-            tasksList.addTask(new Event(taskName, start, end));
-            break;
+            try {
+                LocalDateTime start = LocalDateTime.parse(arguments[2], INPUT_FORMAT);
+                LocalDateTime end = LocalDateTime.parse(arguments[3], INPUT_FORMAT);
+                tasksList.addTask(new Event(taskName, start, end));
+                break;
+            } catch (DateTimeParseException e) {
+                throw new InvalidInputException("Wrong time and date format for event task!");
+            }
         }
     }
 }

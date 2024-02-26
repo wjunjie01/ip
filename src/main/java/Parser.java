@@ -23,9 +23,15 @@ public class Parser {
 
         String command = input.substring(0, spaceIndex);
         String taskName;
+        String keyword;
         parsed[0] = command;
 
         switch (command) {
+        case "find":
+            keyword = input.substring(spaceIndex + 1);
+            parsed[1] = keyword;
+            break;
+
         case "todo":
             taskName = input.substring(spaceIndex + 1);
             parsed[1] = taskName;
@@ -147,6 +153,8 @@ public class Parser {
         String command = input.substring(0, spaceIndex);
         switch (command) {
         case "todo":
+            //Fallthrough
+        case "find":
             return;
 
         case "deadline":

@@ -1,32 +1,36 @@
 package Tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an Event task.
  * An Event task consists of a task's name, its start date and time, its end data and time, and whether it is completed.
  */
 public class Event extends Task {
-    protected String start;
-    protected String end;
+    private LocalDateTime start;
+    private LocalDateTime end;
+    private final static DateTimeFormatter DESIRED_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
 
-    public Event(String taskName, String start, String end) {
+    public Event(String taskName, LocalDateTime start, LocalDateTime end) {
         super(taskName);
         setStart(start);
         setEnd(end);
     }
 
-    public String getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
-    public void setStart(String start) {
+    public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
-    public String getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
 
-    public void setEnd(String end) {
+    public void setEnd(LocalDateTime end) {
         this.end = end;
     }
 
@@ -37,6 +41,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + " (from: " + start + " to: " + end + ")";
+        return super.toString() +
+                " (from: " + start.format(DESIRED_FORMAT) + " to: " + end.format(DESIRED_FORMAT) + ")";
     }
 }
