@@ -10,8 +10,18 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
+/**
+ * Storage helper class to load from and store into save file.
+ */
 public class Storage {
 
+    /**
+     * Takes in 2 files: an input file and a temporary output file. Stores data into temporary output file, then
+     * replaces input file with temporary output file, and finally deleting the temporary output file.
+     *
+     * @param inFile Input file containing data to be loaded from when CheeseBot is loaded up again.
+     * @param outFile Temporary output file to store final data
+     */
     public void storeData(File inFile, File outFile) {
         String inFilePath = inFile.getPath();
         String outFilePath = outFile.getPath();
@@ -47,6 +57,12 @@ public class Storage {
             System.exit(1);
         }
     }
+
+    /**
+     * Creates a file if it does not exist. Also creates the directories it needs if they do not exist.
+     *
+     * @param file The file that is being created.
+     */
     public void createFile(File file) {
         file.getParentFile().mkdirs();
         try {
@@ -55,6 +71,15 @@ public class Storage {
             System.exit(1);
         }
     }
+
+    /**
+     * Reads from the input file and stores all data into CheeseBot's tasksList.
+     * It reads as single line at a time, deciphers the task type specified, creates the respective task type object,
+     * and finally stores into CheeseBot's tasksList.
+     *
+     * @param inFile Input file containing data to be loaded from.
+     * @throws FileNotFoundException Throws FileNotFoundException when input file cannot found at specific location.
+     */
     public void readFromInputFile(File inFile) throws FileNotFoundException {
         Scanner scanner = new Scanner(inFile);
 
