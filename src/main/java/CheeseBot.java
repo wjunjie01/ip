@@ -3,6 +3,9 @@ import Tasks.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+/**
+ * Main executable class that controls program flow
+ */
 public class CheeseBot {
     protected final static TasksList tasksList = new TasksList();
     private final Parser PARSER = new Parser();
@@ -45,10 +48,10 @@ public class CheeseBot {
             tasksList.delete(arguments);
         }
     }
-    public void inputLoop() {
+    private void inputLoop() {
         while (true) {
             try {
-                String input = UI.getInput();
+                String input = UI.printInputPrompt();
                 UI.printDivider();
                 PARSER.validateInput(input);
 
@@ -67,7 +70,7 @@ public class CheeseBot {
         }
     }
 
-    public void run() {
+    private void run() {
         UI.printGreeting();
         try {
             STORAGE.readFromInputFile(inFile);
@@ -86,6 +89,11 @@ public class CheeseBot {
         cheeseBot.run();
     }
 
+    /**
+     * Adds a task of a specific type (Todo, Deadline or Event) using the arguments supplied.
+     *
+     * @param arguments The required parsed arguments for each specific task type.
+     */
     public static void addTask(String[] arguments) {
         String command = arguments[0];
         String taskName = arguments[1];
