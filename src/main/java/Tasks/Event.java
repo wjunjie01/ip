@@ -1,5 +1,9 @@
 package Tasks;
 
+/**
+ * Represents an Event task.
+ * An Event task consists of a task's name, its start date and time, its end data and time, and whether it is completed.
+ */
 public class Event extends Task {
     protected String start;
     protected String end;

@@ -1,5 +1,9 @@
 package Tasks;
 
+/**
+ * Represents a Deadline task.
+ * A deadline task consists of the task's name, its deadline date and time, and whether it is completed.
+ */
 public class Deadline extends Task {
 
     private String deadline;

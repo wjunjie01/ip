@@ -1,5 +1,9 @@
 package Tasks;
 
+/**
+ * An abstract class type that is inherited by Todo, Deadline and Event.
+ * A task has a name and a done status.
+ */
 public abstract class Task {
     protected String taskName;
     protected boolean isTaskDone;
