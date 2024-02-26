@@ -4,10 +4,16 @@ import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Helper class to manage task-related operations. Primarily manages the array of tasks stored.
+ */
 public class TasksList {
     private int numberOfTasks = 0;
     private final ArrayList<Task> tasks = new ArrayList<>();
 
+    /**
+     * Lists all the tasks stored in the array of tasks.
+     */
     public void listTasks() {
         if (isTasksListEmpty()) {
             return;
@@ -15,6 +21,11 @@ public class TasksList {
         printTasksList();
     }
 
+    /**
+     * Adds a new Task into array of tasks.
+     *
+     * @param newTask A Task to be added. Can be of 1 of the 3 inherited types of Task (Todo, Deadline or Event).
+     */
     public void addTask(Task newTask) {
         tasks.add(newTask);
         numberOfTasks++;
@@ -22,7 +33,7 @@ public class TasksList {
         System.out.println("\tYou have a total of " + numberOfTasks + " completed and uncompleted tasks.");
     }
 
-    public void printTasksList() {
+    private void printTasksList() {
         boolean isAllTasksDone = true;
         System.out.println("\tHere's your current list of tasks:");
 
@@ -42,13 +53,23 @@ public class TasksList {
             System.out.println("\tExcellent! You have completed all your tasks!");
         }
     }
-    public boolean isTasksListEmpty() {
+
+    private boolean isTasksListEmpty() {
         if (tasks.isEmpty()) {
             System.out.println("\tThere are no tasks in your list! Please add some tasks.");
             return true;
         }
         return false;
     }
+
+    /**
+     * Marks or unmarks a specific task according to the isDone value.
+     *
+     * @param arguments Contains the arguments for the mark or unmark command. Mainly uses arguments[1], which
+     *                  corresponds to the task number of the task in the current most updated list which the user
+     *                  wishes to mark or unmark.
+     * @param isDone Value to be updated for the task
+     */
     public void mark(String[] arguments, boolean isDone) {
         if (isTasksListEmpty()) {
             return;
@@ -94,6 +115,12 @@ public class TasksList {
         return numberOfTasks;
     }
 
+    /**
+     * Deletes a specific task, which is specified by the task number. Mainly uses arguments[1] which corresponds to the
+     * task number of the task in the current most updated list which the user wishes to delete.
+     *
+     * @param arguments The array containing arguments supplied by user for the delete command.
+     */
     public void delete(String[] arguments) {
         int taskNumber = Integer.parseInt(arguments[1]) - 1;
         Task taskToDelete = tasks.get(taskNumber);
@@ -105,6 +132,13 @@ public class TasksList {
         System.out.println("\tNow you have " + numberOfTasks + " tasks in your list");
     }
 
+    /**
+     * Stores the final status of the array into the file specified by the outputFilePath.
+     * Formats each Task into a specific format before saving into save file.
+     *
+     * @param outputFilePath The file location where the output file is located at.
+     * @throws IOException Throws IO Exception if data cannot be stored into file.
+     */
     public void outputDataIntoFile(String outputFilePath) throws IOException {
         FileWriter fw = new FileWriter(outputFilePath);
         for (Task task: tasks) {
