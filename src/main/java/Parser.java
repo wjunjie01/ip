@@ -1,8 +1,18 @@
+/**
+ * Helper class used to parse input supplied by user into CheeseBot.
+ */
 public class Parser {
     public boolean isBye(String command) {
         return command.equals("bye");
     }
 
+    /**
+     * Parses the input supplied by the user into CheeseBot and returns all the components in the input.
+     * Assumes that the input string passed into the function is of the correct form.
+     *
+     * @param input Input supplied by the user of CheeseBot.
+     * @return An array of fixed size of 4, consisting of the parsed components.
+     */
     public String[] parseInput(String input) {
         String[] parsed = new String[4];
         int spaceIndex = input.indexOf(" ");
@@ -118,6 +128,17 @@ public class Parser {
             throw new InvalidInputException("\tMissing deadline!");
         }
     }
+
+    /**
+     * Validates if the input string has a valid command. Then validates if input has the correct form according to the
+     * type of command.
+     * If input has valid command with a correct corresponding form, function returns normally.
+     * Else, throws InvalidInputException.
+     *
+     * @param input Input supplied to CheeseBot
+     * @throws InvalidInputException Throws InvalidInputException if there is not an exact number of expected arguments for
+     * that particular command.
+     */
     public void validateInput(String input) throws InvalidInputException {
         if (input.isEmpty()) {
             throw new InvalidInputException("\tInput is empty! Please type something.");

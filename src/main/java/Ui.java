@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+/**
+ * Helper User interface class to print results and command prompts to the command line interface that users of CheeseBot
+ * interacts with.
+ */
 public class Ui {
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final String DIVIDER = "\t-------------------------------------------------------------------";
@@ -20,6 +24,9 @@ public class Ui {
         printDivider();
     }
 
+    /**
+     * Prints the list of commands available to the user. Invoked when the "help" command is supplied by the user.
+     */
     public void printCommandList() {
         System.out.println("\tAvailable commands: list, mark, unmark, todo, deadline, event, help, bye\n");
         System.out.println("\tCommand 'list' usage: list\n" +
@@ -57,7 +64,14 @@ public class Ui {
         System.out.println("\tCommand 'bye' usage: bye\n" +
                 "\tFunction: Ends session with CheeseBot.");
     }
-    public String getInput() {
+
+    /**
+     * Prints an input prompt to ask user to type into the command line interface. Then waits for user to type a
+     * command, then return that input line.
+     *
+     * @return The string input by the user.
+     */
+    public String printInputPrompt() {
         String inputPrompt = "\tPlease input your desired action or type 'help' for a list of commands: ";
         System.out.println(inputPrompt);
         return SCANNER.nextLine().strip();
