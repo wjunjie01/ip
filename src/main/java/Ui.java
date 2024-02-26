@@ -43,6 +43,10 @@ public class Ui {
         System.out.println("\tCommand 'help' usage: help\n" +
                 "\tFunction: Lists the available command, along with its usage and functionality.\n");
 
+        System.out.println("\tCommand 'find' usage: find <keyword>\n" +
+                "\tFunction: Searches the list of tasks and prints task names that contains the keyword specified.\n" +
+                "\tExample usage: find apple\n");
+
         System.out.println("\tCommand 'bye' usage: bye\n" +
                 "\tFunction: Ends session with CheeseBot.");
     }
