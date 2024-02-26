@@ -26,19 +26,26 @@ public class Ui {
                 "\tFunction: Lists all recorded tasks.\n");
 
         System.out.println("\tCommand 'mark' usage: mark <task number>\n" +
-                "\tFunction: Marks <task number> as completed.\n");
+                "\tFunction: Marks <task number> as completed.\n" +
+                "\tExample usage: mark 1\n");
 
         System.out.println("\tCommand 'unmark' usage: unmark <task number>\n" +
-                "\tFunction: Marks <task number> as not completed.\n");
+                "\tFunction: Marks <task number> as not completed.\n" +
+                "\tExample usage: unmark 1\n");
 
         System.out.println("\tCommand 'todo' usage: todo <task name>\n" +
-                "\tFunction: Adds a to do task with no deadline.\n");
+                "\tFunction: Adds a to do task with no deadline.\n" +
+                "\tExample usage: todo taskA\n");
 
         System.out.println("\tCommand 'deadline' usage: deadline <task name> /by <deadline>\n" +
-                "\tFunction: Adds a to do task with a deadline.\n");
+                "\tFunction: Adds a to do task with a deadline.\n" +
+                "\tDeadline format: dd/MM/yyyy HHmm\n" +
+                "\tExample usage: deadline taskA /by 26/02/2024 2100\n");
 
         System.out.println("\tCommand 'event' usage: event <event name> /from <start time> /to <end time>\n" +
-                "\tFunction: Adds an event with the start and end timings.\n");
+                "\tFunction: Adds an event with the start and end timings.\n" +
+                "\tStart / End time format: dd/MM/yyyy HHmm\n" +
+                "\tExample usage: event taskA /from 26/02/2024 2100 /to 25/12/2024 0000\n");
 
         System.out.println("\tCommand 'help' usage: help\n" +
                 "\tFunction: Lists the available command, along with its usage and functionality.\n");
