@@ -43,6 +43,11 @@ public class CheeseBot {
 
         case "delete":
             tasksList.delete(arguments);
+            break;
+
+        case "find":
+            tasksList.find(arguments);
+            break;
         }
     }
     public void inputLoop() {
