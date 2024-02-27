@@ -19,7 +19,7 @@ Janet is a desktop app for **managing tasks, optimized for use via a Command Lin
 
 --- 
 
-### Quick start
+## Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer.
 1. Download the latest `ip.jar` file.
@@ -39,9 +39,12 @@ A GUI (similar to the one shown below) should appear in a few seconds.
 
 ---
 
-### Features
+## Features
 
-Features
+> [!WARNING]
+> Any commands executed **MUST STRICTLY** follow the format specified.
+>
+> Any deviation in the format will result in an error.
 
 ### Adding a todo task: `todo`
 
@@ -53,6 +56,13 @@ Examples:
 
 * todo walk the dog
 * todo read a book
+
+Usage:
+```
+todo walk the dog
+added: walk the dog
+You now have 1 task in the list.
+```
 
 ### Adding a deadline task: `deadline`
 
@@ -66,6 +76,13 @@ Examples:
 * deadline finish assignment /by 2359
 * deadline buy groceries for dinner /by 5pm
 
+Usage:
+```
+deadline walk the cat /by 4 November
+added: walk the cat
+You now have 2 tasks in the list.
+```
+
 ### Adding a event task: `event`
 
 Adds an event task to the task list with a start and an end time.
@@ -77,6 +94,13 @@ Examples:
 * event project meeting /from 2pm /to 4pm
 * event birthday party /from 5pm /to 11pm
 * event meeting conference at MBS /from 3pm /to 6pm
+
+Usage: 
+```
+event project meeting /from 6pm /to 8pm
+added: project meeting
+You now have 3 tasks in the list.
+```
 
 ### Listing all tasks: `list`
 
@@ -170,11 +194,11 @@ There is no need to save manually.
 
 > [!NOTE]
 > By default, the data file is stored in the file path **'data/duke.txt'** in the same folder
-> as the jar file.
+> as the jar file. If the file does not exist, running the jar file creates a new file in the file path.
 
 --- 
 
-### FAQ
+## FAQ
 
 **Q:** How do I transfer my data to another Computer?
 
@@ -183,7 +207,7 @@ it creates with the file that contains the data.
 
 ---
 
-### Command summary
+## Command summary
 
 | **Commands** | **Examples**                                                                        |
 |--------------|-------------------------------------------------------------------------------------|
