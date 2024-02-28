@@ -22,10 +22,10 @@ Janet is a desktop app for **managing tasks, optimized for use via a Command Lin
 ## Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer.
-1. Download the latest `ip.jar` file.
+1. Download the latest [`Janet.jar` file](https://github.com/wjunjie01/ip/releases/tag/A-Release). 
 1. Copy the file to the folder you want to use as the _home folder_ to store your data.
 1. Open a command terminal, `cd` into the folder you put the jar file in, and 
-use the `java -jar ip.jar` command to run the application. 
+use the `java -jar Janet.jar` command to run the application. 
 A GUI (similar to the one shown below) should appear in a few seconds.
 ![img.png](img.png)
 1. Type the command in the CLI and press enter to execute the command.
