@@ -19,6 +19,9 @@ CheeseBot is an automated task tracking bot, optimised for use in a command-line
   
 ## Features
 
+> [!NOTE] 
+> something something
+
 > [!NOTE] Regarding the command formats<br>  
 > - Words in `UPPER_CASE` are parameters that need to be supplied by the user.  
 > E.g. in `todo TASK_NAME`, `TASK_NAME` is a parameter which should be used as `todo reading`.
