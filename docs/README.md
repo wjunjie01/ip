@@ -47,6 +47,9 @@ Adds a to-do task into your list of tasks.
 Format: `todo TASK_NAME`  
 Example usage: `todo Revise lecture 1 content`
 
+> [!NOTE]
+> something something
+
 > [!NOTE]<br>
 > If you are looking to add a task with a specific deadline to adhere to, 
 > try [deadlines](#adding-a-to-do-task-with-deadline).
