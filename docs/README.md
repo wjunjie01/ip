@@ -45,6 +45,11 @@ A GUI (similar to the one shown below) should appear in a few seconds.
 > Any commands executed **MUST STRICTLY** follow the format specified.
 >
 > Any deviation in the format will result in an error.
+<div style="background-color: #d1a8a5; border-left: 5px solid #a35c56; padding: 20px;">
+    <strong>&#128161; WARNING: </strong> Any commands execute must STRICTLY follow the
+    format specified. Any deviation in the format specified may result in 
+    an error.
+</div>
 
 ### Adding a todo task: `todo`
 
@@ -192,9 +197,11 @@ Format: `bye`
 The task list data are saved in the local hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
-> [!NOTE]
-> By default, the data file is stored in the file path **'data/duke.txt'** in the same folder
-> as the jar file. If the file does not exist, running the jar file creates a new file in the file path.
+<div style="background-color: #a5c5d1; border-left: 5px solid #2e88ab; padding: 20px;">
+    <strong>&#128161; NOTE: </strong> By default, the data file is stored in the file path ‘data/duke.txt’ in 
+    the same folder as the jar file. If the file does not exist, running the jar file creates a new file in 
+    the file path.
+</div>
 
 --- 
 
